@@ -62,7 +62,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                                         <Form.Label>Ticket Validation Data</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder="Enter validation data"
+                                            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
                                             value={qrCode}
                                             onChange={e => setQrCode(e.target.value)}
                                         />
