@@ -78,3 +78,19 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+
+// Cache URLs under /static/*
+registerRoute(
+  ({url}) => url.pathname.startsWith('/static/'),
+  new StaleWhileRevalidate({
+    cacheName: 'static-resources',
+  })
+);
+
+// Cache the root URL and /index.html
+registerRoute(
+  ({url}) => url.pathname === '/' || url.pathname === '/index.html',
+  new StaleWhileRevalidate({
+    cacheName: 'shell',
+  })
+);

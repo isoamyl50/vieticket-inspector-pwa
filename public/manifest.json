@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Inspector",
+  "name": "VietTicket Inspector",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,29 @@
       "sizes": "512x512"
     }
   ],
+  "screenshots": [
+    {
+      "src": "screenshots/1.jpg",
+      "sizes": "1125x2436",
+      "type": "image/jpeg",
+      "form-factor": "narrow"
+    },
+    {
+      "src": "screenshots/2.jpg",
+      "sizes": "1125x2436",
+      "type": "image/jpeg",
+      "form-factor": "narrow"
+    },
+    {
+      "src": "screenshots/3.jpg",
+      "sizes": "1125x2436",
+      "type": "image/jpeg",
+      "form-factor": "narrow"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#212529",
+  "background_color": "#212529",
+  "orientation": "portrait"
 }
