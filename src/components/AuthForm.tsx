@@ -1,10 +1,9 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, Form, Card, FloatingLabel, Alert, Row, Col, Container } from 'react-bootstrap';
+import { Button, Form, Card, FloatingLabel, Alert, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginIcon from '@mui/icons-material/Login';
 import HourGlassTop from '@mui/icons-material/HourglassTop';
 import ThemeButton from './ThemeButton';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 /**
  * Props for the AuthForm component.

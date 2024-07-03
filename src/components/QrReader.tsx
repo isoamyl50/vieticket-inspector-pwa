@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 // Styles
 import "./QrStyles.css";
@@ -20,11 +20,9 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) 
     const [qrOn, setQrOn] = useState<boolean>(true);
     const isFirstScan = useRef(true); // Keep track of the first scan
 
-    // Result
-    const [scannedResult, setScannedResult] = useState<string | undefined>("");
 
     // Success
-    const onScanSuccess = (result: QrScanner.ScanResult) => {
+    const onScanSuccess = useCallback((result: QrScanner.ScanResult) => {
         if (isFirstScan.current) {
             isFirstScan.current = false;
             onScan(result?.data);
@@ -32,7 +30,7 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) 
             // Immediately stop the scanner after successful scan
             scanner?.current?.stop();
         }
-    };
+    }, [onScan, setQrScanned]);
 
     // Fail
     const onScanFail = (err: string | Error) => {
@@ -65,7 +63,6 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) 
         } else {
             startScanner(); // Ensure scanner is started when qrScanned is false
             isFirstScan.current = true;
-            setScannedResult(undefined);
         }
 
         // Clean up on unmount and when qrScanned changes
@@ -73,7 +70,7 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) 
             stopScanner();
             scannerInstance = null; // Release the instance
         };
-    }, [qrScanned]);
+    }, [onScanSuccess, qrScanned]);
 
     // ❌ If "camera" is not allowed in browser permissions, show an alert.
     useEffect(() => {
