@@ -26,7 +26,7 @@ function ThemeButton({ userPref, cycleTheme, className }: ThemeButtonProps): JSX
   }[userPref];
 
   return (
-    <Button className={className} onClick={cycleTheme} variant={buttonVariant}>
+    <Button aria-label='Toggle Light/Dark Mode' className={className} onClick={cycleTheme} variant={buttonVariant}>
       {buttonIcon}
     </Button>
   );
