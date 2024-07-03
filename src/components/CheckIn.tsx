@@ -24,6 +24,11 @@ interface CheckInProps {
 const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoading, onManualSubmit, qrScanned, setQrScanned, handleScanAnother, onLogout, userPref, cycleTheme }) => {
     const [qrCode, setQrCode] = useState('');
 
+    // Alert user when mounted
+    React.useEffect(() => {
+        alert('There is a known issue with the QR scanner not working on light/dark theme has changed. Please refresh if you encounter this issue.');
+    }, []);
+
     const handleLogout = () => {
         onLogout();
     }

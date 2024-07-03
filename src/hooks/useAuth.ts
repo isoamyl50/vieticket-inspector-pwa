@@ -53,6 +53,7 @@ export const useAuth = () => {
                 localStorage.removeItem('authToken');
                 setAuthToken(null);
                 setIsAuthenticated(false);
+                setError('Session expired. Please log in again.');
             }
         } catch (err) {
             setIsAuthenticated(false);
