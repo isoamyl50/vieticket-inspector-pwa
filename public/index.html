@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 
+        Initial styling that is shown before any React components are loaded
+    -->
     <meta name="theme-color" content="#212529" />
+    <style>
+        body {
+            background-color: #212529;
+        }
+    </style>
     <meta name="description" content="Ticket Inspection Application for VieTicket" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
@@ -23,8 +32,9 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>VieTicket Inspector</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -37,5 +47,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
