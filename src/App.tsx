@@ -24,6 +24,7 @@ const App: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
+    const [qrCodeState, setQrCodeState] = useState<string | null>(null);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
@@ -52,8 +53,8 @@ const App: React.FC = () => {
         logout();
     }
 
-    const processQrCode = async (qrCode: string) => {
-
+    const processQrCode = useCallback( async (qrCode: string) => {
+        
         setQrScanned(true);
 
         // Check if qrCode text matches UUID format
@@ -95,16 +96,27 @@ const App: React.FC = () => {
                 setIsLoading(false);
             }
         }
-    };
+    }, [authToken]);
 
-    const memoizedProcessQrCode = useCallback(
-        (qrCode: string) => processQrCode(qrCode),
-        [authToken]
-    )
+    const handleQrCode = useCallback(
+        (qrCode: string) => {
+            setQrCodeState(qrCode);
+        },
+        []
+    );
 
     const handleScanAnother = () => {
         setQrScanned(false);
     };
+
+    useEffect(() => {
+
+        if (qrCodeState !== null) {
+            processQrCode(qrCodeState);
+            setQrCodeState(null);
+        }
+
+    }, [qrCodeState, processQrCode]);
 
     return (
         <Container className="App p-3">
@@ -119,7 +131,7 @@ const App: React.FC = () => {
                 />
             ) : (
                 <CheckIn
-                    onQrScan={memoizedProcessQrCode}
+                    onQrScan={handleQrCode}
                     ticketDetails={ticketDetails}
                     error={error}
                     isLoading={isLoading}
