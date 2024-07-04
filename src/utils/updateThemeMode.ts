@@ -1,10 +1,21 @@
 import { useEffect, useState } from 'react';
 
-export const useDarkMode = () => {
-    // Initialize userPref state with value from localStorage if available, otherwise 'auto'
+/**
+ * Custom hook for managing dark mode preference.
+ * 
+ * @returns An object containing the current dark mode state, a function to cycle through different themes, and the user preference.
+ */
+export const updateThemeMode = () => {
+    /**
+     * Retrieves the user's preferred theme from local storage and sets it as the initial state.
+     * If no preference is found, the default value is set to 'auto'.
+     */
     const [userPref, setUserPref] = useState<'light' | 'dark' | 'auto'>(
         localStorage.getItem('themePref') as 'light' | 'dark' | 'auto' || 'auto'
     );
+    /**
+     * Represents the current dark mode state and provides a function to update it.
+     */
     const [darkMode, setDarkMode] = useState<boolean>(true);
 
     useEffect(() => {
@@ -19,7 +30,7 @@ export const useDarkMode = () => {
 
         const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         mediaQueryList.addEventListener('change', updateDarkModePreference);
-        updateDarkModePreference(); // Call it to set initial state based on user preference or system preference
+        updateDarkModePreference(); 
 
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (darkMode) {
@@ -40,6 +51,9 @@ export const useDarkMode = () => {
         localStorage.setItem('themePref', userPref);
     }, [userPref]);
 
+    /**
+     * Toggles between different theme preferences.
+     */
     const cycleTheme = () => {
         if (userPref === 'auto') {
             setUserPref('light');
