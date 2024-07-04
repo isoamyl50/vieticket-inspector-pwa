@@ -11,8 +11,16 @@
     -->
     <meta name="theme-color" content="#212529" />
     <style>
+        /* Default background color for light mode */
         body {
-            background-color: #212529;
+            background-color: #ffffff;
+        }
+
+        /* Detects if the device is in dark mode and applies the background color accordingly */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #212529;
+            }
         }
     </style>
     <meta name="description" content="Ticket Inspection Application for VieTicket" />
