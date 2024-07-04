@@ -5,7 +5,7 @@ import { useAuth } from './hooks/useAuth';
 import { fetchTicketDetails } from './utils/api';
 import { beep } from './utils/beep';
 import { Container } from 'react-bootstrap';
-import { useDarkMode } from './utils/theme';
+import { updateThemeMode } from './utils/updateThemeMode';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -18,7 +18,7 @@ interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const { cycleTheme, userPref } = useDarkMode();
+    const { cycleTheme, userPref } = updateThemeMode();
     const { isLoading: authLoading, error: authError, setError: setAuthError, authToken, login, logout, isAuthenticated } = useAuth();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -61,6 +61,7 @@ const App: React.FC = () => {
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         if (!uuidRegex.test(qrCode)) {
             setError('Invalid QR code. Please try again.');
+            beep(false);
             return;
         }
 
