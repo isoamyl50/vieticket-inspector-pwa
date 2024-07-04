@@ -23,7 +23,7 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, is
 
     if (isLoading) {
         return (
-            <Card className="mt-3" border='info'>
+            <Card className="mt-0" border='info'>
                 <Card.Header>
                     <Skeleton width={`${getRandomWidth()}%`} />
                 </Card.Header>
@@ -38,7 +38,7 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, is
     }
 
     if (error) {
-        return <Alert variant="danger" className="mt-3 mb-5">{error}</Alert>;
+        return <Alert variant="danger" className="mt-0">{error}</Alert>;
     }
 
     if (ticketDetails) {
@@ -47,7 +47,7 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, is
                 bg={ticketDetails.status !== "PURCHASED" ? 'danger' : undefined}
                 text={ticketDetails.status !== "PURCHASED" ? 'light' : undefined}
                 border={ticketDetails.status !== "PURCHASED" ? 'danger' : undefined}
-                className={`mt-3`}>
+                className={`mt-0`}>
                 <Card.Header><strong>{ticketDetails.message}</strong></Card.Header>
                 <Card.Body>
                     <Card.Text>Lead Visitor: {ticketDetails.leadVisitor}</Card.Text>

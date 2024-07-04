@@ -51,7 +51,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                 <div className="row g-4">
                     <div className="col-md-6">
                         {qrScanned ? (
-                            <Alert variant="info" className="mt-3 mb-1">Press <strong>Space</strong> or tap screen to validate another ticket.</Alert>
+                            <Alert variant="info" className="mt-0 mb-0">Press <strong>Space</strong> or tap screen to validate another ticket.</Alert>
                         ) : (
                             <>
                                 <QrReader onScan={onQrScan} />
