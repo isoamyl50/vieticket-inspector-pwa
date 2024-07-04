@@ -5,7 +5,7 @@ import { useAuth } from './hooks/useAuth';
 import { fetchTicketDetails } from './utils/api';
 import { beep } from './utils/beep';
 import { Container } from 'react-bootstrap';
-import { updateThemeMode } from './utils/updateThemeMode';
+import { useThemes } from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -18,7 +18,7 @@ interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const { cycleTheme, userPref } = updateThemeMode();
+    const { cycleTheme, userPref } = useThemes();
     const { isLoading: authLoading, error: authError, setError: setAuthError, authToken, login, logout, isAuthenticated } = useAuth();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
  * 
  * @returns An object containing the current dark mode state, a function to cycle through different themes, and the user preference.
  */
-export const updateThemeMode = () => {
+export const useThemes = () => {
     /**
      * Retrieves the user's preferred theme from local storage and sets it as the initial state.
      * If no preference is found, the default value is set to 'auto'.
