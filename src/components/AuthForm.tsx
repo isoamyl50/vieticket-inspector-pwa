@@ -44,7 +44,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
             <Row className="justify-content-center">
                 <Col xs={12} sm={8} md={6} lg={4}>
                     <header className="d-flex justify-content-between align-items-center mb-3">
-                        <h2>VietTicket Inspector</h2>
+                        <h2>VieTicket Inspector</h2>
                         <div>
                             <ThemeButton cycleTheme={cycleTheme} userPref={userPref} />
                         </div>
@@ -82,7 +82,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
                                 </Form.Group>
                                 <div className='d-flex justify-content-between'>
                                     <Button type='submit' variant="primary" disabled={isLoading}>{isLoading ? <HourGlassTop /> : <LoginIcon />} Login</Button>
-                                    <Button variant="outline-secondary" className="ms-2" onClick={() => window.open('https://www.vieticket.io.vn/auth/reset-password', '_blank')}>Forgot Password?</Button>
+                                    <Button variant="secondary" className="ms-2" onClick={() => window.open('https://www.vieticket.io.vn/auth/reset-password', '_blank')}>Forgot Password?</Button>
                                 </div>
                             </Form>
                         </Card.Body>
