@@ -1,6 +1,5 @@
 import React, { FormEvent, useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
-import QrReader from './QrReader';
 import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -24,11 +23,6 @@ interface CheckInProps {
 const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoading, onManualSubmit, qrScanned, setQrScanned, handleScanAnother, onLogout, userPref, cycleTheme }) => {
     const [qrCode, setQrCode] = useState('');
 
-    // Alert user when mounted
-    React.useEffect(() => {
-        alert('There is a known issue with the QR scanner not working on light/dark theme has changed. Please refresh if you encounter this issue.');
-    }, []);
-
     const handleLogout = () => {
         onLogout();
     }
@@ -48,8 +42,8 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                 <h2>Check-In</h2>
                 <div>
                     <ThemeButton className="ms-2" userPref={userPref} cycleTheme={cycleTheme} />
-                    <Button aria-label='Help' variant="outline-secondary" className="ms-2" onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
-                    <Button aria-label='Log Out' variant="outline-danger" className='ms-2' onClick={handleLogout}><LogoutIcon /></Button>
+                    <Button aria-label='Help' title='Help' variant="outline-secondary" className="ms-2" onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
+                    <Button aria-label='Log Out' title='Log Out' variant="outline-danger" className='ms-2' onClick={handleLogout}><LogoutIcon /></Button>
                 </div>
             </header>
 
@@ -60,7 +54,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                             <Alert variant="info" className="mt-3 mb-1">Press <strong>Space</strong> or tap screen to validate another ticket.</Alert>
                         ) : (
                             <>
-                                <QrReader onScan={onQrScan} qrScanned={qrScanned} setQrScanned={setQrScanned} />
+                                {/* TODO: QR Reader */}
                                 <br />
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group>
@@ -75,7 +69,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                                             Input the validation data manually if the QR code cannot be scanned.
                                         </Form.Text>
                                     </Form.Group>
-                                    <Button variant="primary" type="submit">
+                                    <Button variant="primary" type="submit" title='Submit QR Code'>
                                         Submit QR Code
                                     </Button>
                                 </Form>
