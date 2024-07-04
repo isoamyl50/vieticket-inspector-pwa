@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
 import CheckIn from './components/CheckIn';
 import { useAuth } from './hooks/useAuth';
@@ -28,6 +28,7 @@ const App: React.FC = () => {
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.code === 'Space') {
+                event.preventDefault();
                 handleScanAnother();
             }
         };
@@ -52,6 +53,8 @@ const App: React.FC = () => {
     }
 
     const processQrCode = async (qrCode: string) => {
+
+        setQrScanned(true);
 
         // Check if qrCode text matches UUID format
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -94,6 +97,11 @@ const App: React.FC = () => {
         }
     };
 
+    const memoizedProcessQrCode = useCallback(
+        (qrCode: string) => processQrCode(qrCode),
+        [authToken]
+    )
+
     const handleScanAnother = () => {
         setQrScanned(false);
     };
@@ -111,7 +119,7 @@ const App: React.FC = () => {
                 />
             ) : (
                 <CheckIn
-                    onQrScan={processQrCode}
+                    onQrScan={memoizedProcessQrCode}
                     ticketDetails={ticketDetails}
                     error={error}
                     isLoading={isLoading}

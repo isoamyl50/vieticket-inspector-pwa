@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ThemeButton from './ThemeButton';
+import QrReader from './QrReader';
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -28,7 +29,6 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
     }
 
     const handleSubmit = (e: FormEvent) => {
-        setQrScanned(true);
         e.preventDefault();
         if (qrCode) {
             onManualSubmit(qrCode);
@@ -54,7 +54,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                             <Alert variant="info" className="mt-3 mb-1">Press <strong>Space</strong> or tap screen to validate another ticket.</Alert>
                         ) : (
                             <>
-                                {/* TODO: QR Reader */}
+                                <QrReader onScan={onQrScan} />
                                 <br />
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group>

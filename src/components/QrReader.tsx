@@ -9,28 +9,24 @@ import React from "react";
 
 interface QrReaderProps {
     onScan: (qrCode: string) => void;
-    qrScanned: boolean;
-    setQrScanned: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) => {
+const QrReader: React.FC<QrReaderProps> = ({ onScan }) => {
     // QR States
     const scanner = useRef<QrScanner>();
     const videoEl = useRef<HTMLVideoElement>(null);
     const [qrOn, setQrOn] = useState<boolean>(true);
     const isFirstScan = useRef(true); // Keep track of the first scan
 
-
     // Success
     const onScanSuccess = useCallback((result: QrScanner.ScanResult) => {
         if (isFirstScan.current) {
             isFirstScan.current = false;
             onScan(result?.data);
-            setQrScanned(true);
             // Immediately stop the scanner after successful scan
             scanner?.current?.stop();
         }
-    }, [onScan, setQrScanned]);
+    }, [onScan]);
 
     // Fail
     const onScanFail = (err: string | Error) => {
@@ -58,19 +54,12 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) 
         // Initial scanner start
         startScanner();
 
-        if (qrScanned) {
-            stopScanner();
-        } else {
-            startScanner(); // Ensure scanner is started when qrScanned is false
-            isFirstScan.current = true;
-        }
-
         // Clean up on unmount and when qrScanned changes
         return () => {
             stopScanner();
             scannerInstance = null; // Release the instance
         };
-    }, [onScanSuccess, qrScanned]);
+    }, [onScanSuccess]);
 
     // ❌ If "camera" is not allowed in browser permissions, show an alert.
     useEffect(() => {
@@ -88,4 +77,4 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan, qrScanned, setQrScanned }) 
     );
 };
 
-export default QrReader;
+export default React.memo(QrReader);
