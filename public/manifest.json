@@ -32,39 +32,47 @@
       "purpose": "maskable"
     }
   ],
-  "assets/img/screenshots": [
+  "screenshots": [
     {
-      "src": "assets/img/screenshots/narrow/1.png",
+      "src": "screenshots/narrow/1.png",
       "sizes": "1080x2400",
       "type": "image/png",
-      "form-factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Login Screen"
     },
     {
-      "src": "assets/img/screenshots/narrow/2.png",
+      "src": "screenshots/narrow/2.png",
       "sizes": "1080x2400",
       "type": "image/png",
-      "form-factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Scan to Check-in"
     },
     {
-      "src": "assets/img/screenshots/narrow/3.png",
+      "src": "screenshots/narrow/3.png",
       "sizes": "1080x2400",
       "type": "image/png",
-      "form-factor": "narrow"
+      "form_factor": "narrow",
+      "label": "Ticket information"
     },
     {
-      "src": "assets/img/screenshots/wide/1.png",
-      "sizes": "2748x2160",
-      "type": "image/png"
+      "src": "screenshots/wide/1.png",
+      "sizes": "3360x2100",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Login Screen"
     },
     {
-      "src": "assets/img/screenshots/wide/2.png",
+      "src": "screenshots/wide/2.png",
       "sizes": "2748x2160",
-      "type": "image/png"
+      "type": "image/png",
+      "label": "Scan to Check-in"
     },
     {
-      "src": "assets/img/screenshots/wide/3.png",
-      "sizes": "2748x2160",
-      "type": "image/png"
+      "src": "screenshots/wide/3.png",
+      "sizes": "3360x2100",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Ticket information"
     }
   ],
   "start_url": ".",
