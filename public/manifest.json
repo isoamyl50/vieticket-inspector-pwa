@@ -56,7 +56,7 @@
     },
     {
       "src": "screenshots/wide/1.png",
-      "sizes": "3360x2100",
+      "sizes": "2748x2160",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Login Screen"
@@ -65,11 +65,12 @@
       "src": "screenshots/wide/2.png",
       "sizes": "2748x2160",
       "type": "image/png",
-      "label": "Scan to Check-in"
+      "label": "Scan to Check-in",
+      "form_factor": "wide"
     },
     {
       "src": "screenshots/wide/3.png",
-      "sizes": "3360x2100",
+      "sizes": "2748x2160",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Ticket information"
