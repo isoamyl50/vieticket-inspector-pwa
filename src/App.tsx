@@ -8,6 +8,7 @@ import { Container } from 'react-bootstrap';
 import { useThemes } from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 interface TicketDetails {
     leadVisitor: string;
@@ -19,12 +20,23 @@ interface TicketDetails {
 
 const App: React.FC = () => {
     const { cycleTheme, userPref } = useThemes();
-    const { isLoading: authLoading, error: authError, setError: setAuthError, authToken, login, logout, isAuthenticated } = useAuth();
+    const { isLoading: authLoading, error: authError, setError: setAuthError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone } = useAuth();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
     const [qrCodeState, setQrCodeState] = useState<string | null>(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isInitialAuthCheckDone) {
+            navigate('/');
+        } else if (isAuthenticated) {
+            navigate('/check-in');
+        } else {
+            navigate('/auth/login');
+        }
+    }, [isAuthenticated, navigate, isInitialAuthCheckDone]);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
@@ -53,8 +65,8 @@ const App: React.FC = () => {
         logout();
     }
 
-    const processQrCode = useCallback( async (qrCode: string) => {
-        
+    const processQrCode = useCallback(async (qrCode: string) => {
+
         setQrScanned(true);
 
         // Check if qrCode text matches UUID format
@@ -121,30 +133,39 @@ const App: React.FC = () => {
 
     return (
         <Container className="App p-3">
-            {!isAuthenticated ? (
-                <AuthForm
-                    error={authError}
-                    setError={setAuthError}
-                    isLoading={authLoading}
-                    onLogin={login}
-                    cycleTheme={cycleTheme}
-                    userPref={userPref}
+            <Routes>
+                <Route path="/" element={
+                    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                        <h1>VieTicket Inspector</h1>
+                    </div>
+                }
                 />
-            ) : (
-                <CheckIn
-                    onQrScan={handleQrCode}
-                    ticketDetails={ticketDetails}
-                    error={error}
-                    isLoading={isLoading}
-                    onManualSubmit={processQrCode}
-                    qrScanned={qrScanned}
-                    setQrScanned={setQrScanned}
-                    handleScanAnother={handleScanAnother}
-                    onLogout={handleLogout}
-                    cycleTheme={cycleTheme}
-                    userPref={userPref}
-                />
-            )}
+                <Route path="/auth/login" element={
+                    <AuthForm
+                        error={authError}
+                        setError={setAuthError}
+                        isLoading={authLoading}
+                        onLogin={login}
+                        cycleTheme={cycleTheme}
+                        userPref={userPref}
+                    />
+                } />
+                <Route path="/check-in" element={
+                    <CheckIn
+                        onQrScan={handleQrCode}
+                        ticketDetails={ticketDetails}
+                        error={error}
+                        isLoading={isLoading}
+                        onManualSubmit={processQrCode}
+                        qrScanned={qrScanned}
+                        setQrScanned={setQrScanned}
+                        handleScanAnother={handleScanAnother}
+                        onLogout={handleLogout}
+                        cycleTheme={cycleTheme}
+                        userPref={userPref}
+                    />
+                } />
+            </Routes>
         </Container>
     );
 };

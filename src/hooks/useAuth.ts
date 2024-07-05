@@ -23,6 +23,7 @@ export const useAuth = () => {
     const [error, setError] = useState<string | null>(null);
     const [authToken, setAuthToken] = useState<string | null>(localStorage.getItem('authToken'));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isInitialAuthCheckDone, setIsInitialAuthCheckDone] = useState(false);
 
     useEffect(() => {
         checkAuthStatus();
@@ -60,6 +61,7 @@ export const useAuth = () => {
             setError('Could not make a request to the server. Please try again.');
         } finally {
             setIsLoading(false);
+            setIsInitialAuthCheckDone(true);
         }
     }
 
@@ -107,5 +109,5 @@ export const useAuth = () => {
         setAuthToken(null);
     };
 
-    return { isLoading, error, setError, authToken, login, logout, isAuthenticated };
+    return { isLoading, error, setError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone };
 };
