@@ -12,7 +12,6 @@
 </p>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-  <img src="public/screenshots/narrow/1.png" alt="Login screenshot" style="width: 33%; max-width: 100%;">
   <img src="public/screenshots/narrow/2.png" alt="Scan to check-in screenshot" style="width: 33%; max-width: 100%;">
   <img src="public/screenshots/narrow/3.png" alt="Ticket details screenshot" style="width: 33%; max-width: 100%;">
 </div>
