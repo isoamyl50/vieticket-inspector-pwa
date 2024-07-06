@@ -27,7 +27,6 @@ export const useAuth = () => {
 
     useEffect(() => {
         checkAuthStatus();
-        console.log(apiBaseUrl);
     }, []);
 
     const checkAuthStatus = async () => {
