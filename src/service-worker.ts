@@ -81,6 +81,6 @@ self.addEventListener('message', (event) => {
 
 // Additional precache for audio files
 precacheAndRoute([
-    {url: '/assets/audio/success.mp3', revision: '1'},
-    {url: '/assets/audio/failure.mp3', revision: '1'}
+    {url: '/assets/audio/success.mp3'},
+    {url: '/assets/audio/failure.mp3'}
 ]);
