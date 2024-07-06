@@ -34,7 +34,7 @@
    ```
 3. **Environment Setup:**
    - Create a `.env` file in the project root.
-   - Add your API URL: `REACT_APP_API_BASE_URL=<API_URL>`
+   - Add your API URL: `VITE_APP_API_BASE_URL=<API_URL>`
 4. **Run:**
    ```bash
    npm start
