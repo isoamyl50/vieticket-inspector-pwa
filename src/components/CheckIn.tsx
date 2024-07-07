@@ -41,7 +41,12 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
     return (
         <div>
             <header className="d-flex justify-content-between align-items-center mb-3">
-                <h2>Check-In</h2>
+                <div>
+                    <h2 className='mb-0'>
+                        Inspector
+                    </h2>
+                    <figcaption className="text-muted small mt-0 fw-light">by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
+                </div>
                 <ButtonGroup size='sm' className='text-end'>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
                     <Button aria-label='Help' title='Help' variant="outline-secondary" onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>

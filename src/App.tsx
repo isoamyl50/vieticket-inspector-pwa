@@ -9,6 +9,7 @@ import { useThemes } from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import SplashScreen from './components/SplashScreen';
 
 interface TicketDetails {
     leadVisitor: string;
@@ -135,9 +136,7 @@ const App: React.FC = () => {
         <Container className="App p-3">
             <Routes>
                 <Route path="/" element={
-                    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-                        <h1>VieTicket Inspector</h1>
-                    </div>
+                    <SplashScreen />
                 }
                 />
                 <Route path="/auth/login" element={

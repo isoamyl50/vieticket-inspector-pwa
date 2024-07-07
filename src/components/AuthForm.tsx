@@ -89,7 +89,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
                                         />
                                     </FloatingLabel>
                                 </Form.Group>
-                                <Button className="w-100" type='submit' variant="primary" disabled={isLoading}>{isLoading ? <HourGlassTop /> : <LoginIcon />} Login</Button>
+                                <Button className="w-100" type='submit' variant="primary" disabled={isLoading}><LoginIcon /> Login</Button>
                             </Form>
                         </Card.Body>
                     </Card>

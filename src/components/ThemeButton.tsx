@@ -13,7 +13,7 @@ interface ThemeButtonProps {
     cycleTheme: () => void;
 }
 
-function ThemeButton({ userPref, cycleTheme, className, size }: ThemeButtonProps): JSX.Element {
+const ThemeButton: React.FC<ThemeButtonProps> = ({ userPref, cycleTheme, className, size }) => {
 
     const themeInfo = {
         auto: { icon: <BrightnessAutoIcon />, label: 'Auto Light/Dark Mode' },
