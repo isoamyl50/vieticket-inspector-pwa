@@ -80,13 +80,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
                                         />
                                     </FloatingLabel>
                                 </Form.Group>
-                                <div className='d-flex justify-content-between'>
-                                    <Button type='submit' variant="primary" disabled={isLoading}>{isLoading ? <HourGlassTop /> : <LoginIcon />} Login</Button>
-                                    <Button variant="secondary" className="ms-2" onClick={() => window.open('https://www.vieticket.io.vn/auth/reset-password', '_blank')}>Forgot Password?</Button>
-                                </div>
+                                <Button className="w-100" type='submit' variant="primary" disabled={isLoading}>{isLoading ? <HourGlassTop /> : <LoginIcon />} Login</Button>
                             </Form>
                         </Card.Body>
                     </Card>
+                    <a href="https://www.vieticket.io.vn/auth/reset-password" className="d-block mt-3 text-center text-decoration-none">Forgot your password?</a>
                 </Col>
             </Row>
         </>

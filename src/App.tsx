@@ -174,7 +174,7 @@ const App: React.FC = () => {
                 </Container>
             </main>
             <footer className="text-center p-3 footer">
-                <a href="https://github.com/isoamyl50/vieticket-inspector-pwa" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/isoamyl50/vieticket-inspector-pwa" target="_blank" rel="noopener noreferrer" className='text-decoration-none'>
                    <GitHubIcon className='inline-icon' /> Take a look the GitHub Repo
                 </a>
             </footer>
