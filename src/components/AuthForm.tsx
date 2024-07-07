@@ -44,13 +44,20 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
         <>
             <Row className="justify-content-center">
                 <Col xs={12} sm={8} md={6} lg={4}>
+
                     <header className="d-flex justify-content-between align-items-center mb-3">
-                        <h2>VieTicket Inspector</h2>
-                        <ButtonGroup size='sm'>
+                        <div>
+                            <h2 className='mb-0'>
+                                Inspector
+                            </h2>
+                            <figcaption className="text-muted small mt-0 fw-light">by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
+                        </div>
+                        <ButtonGroup className='text-end' size='sm'>
                             <Button variant='outline-secondary' aria-label='Check out the GitHub Repository' title='Check out the GitHub Repository' href='https://github.com/isoamyl50/vieticket-inspector-pwa' target='_blank' rel='noopener noreferrer'><GitHubIcon /></Button>
                             <ThemeButton cycleTheme={cycleTheme} userPref={userPref} />
                         </ButtonGroup>
                     </header>
+
 
                     {error && <Alert variant="info" className='mb-3'>{error}</Alert>}
                     <Card className='p-1 container'>
