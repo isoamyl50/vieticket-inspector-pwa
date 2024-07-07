@@ -9,6 +9,9 @@ import { useThemes } from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
+import './App.css';
 
 interface TicketDetails {
     leadVisitor: string;
@@ -132,41 +135,50 @@ const App: React.FC = () => {
     }, [qrCodeState, processQrCode]);
 
     return (
-        <Container className="App p-3">
-            <Routes>
-                <Route path="/" element={
-                    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-                        <h1>VieTicket Inspector</h1>
-                    </div>
-                }
-                />
-                <Route path="/auth/login" element={
-                    <AuthForm
-                        error={authError}
-                        setError={setAuthError}
-                        isLoading={authLoading}
-                        onLogin={login}
-                        cycleTheme={cycleTheme}
-                        userPref={userPref}
-                    />
-                } />
-                <Route path="/check-in" element={
-                    <CheckIn
-                        onQrScan={handleQrCode}
-                        ticketDetails={ticketDetails}
-                        error={error}
-                        isLoading={isLoading}
-                        onManualSubmit={processQrCode}
-                        qrScanned={qrScanned}
-                        setQrScanned={setQrScanned}
-                        handleScanAnother={handleScanAnother}
-                        onLogout={handleLogout}
-                        cycleTheme={cycleTheme}
-                        userPref={userPref}
-                    />
-                } />
-            </Routes>
-        </Container>
+        <div className="app-container">
+            <main className='main-content'>
+                <Container className="App p-3">
+                    <Routes>
+                        <Route path="/" element={
+                            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                                <h1>VieTicket Inspector</h1>
+                            </div>
+                        }
+                        />
+                        <Route path="/auth/login" element={
+                            <AuthForm
+                                error={authError}
+                                setError={setAuthError}
+                                isLoading={authLoading}
+                                onLogin={login}
+                                cycleTheme={cycleTheme}
+                                userPref={userPref}
+                            />
+                        } />
+                        <Route path="/check-in" element={
+                            <CheckIn
+                                onQrScan={handleQrCode}
+                                ticketDetails={ticketDetails}
+                                error={error}
+                                isLoading={isLoading}
+                                onManualSubmit={processQrCode}
+                                qrScanned={qrScanned}
+                                setQrScanned={setQrScanned}
+                                handleScanAnother={handleScanAnother}
+                                onLogout={handleLogout}
+                                cycleTheme={cycleTheme}
+                                userPref={userPref}
+                            />
+                        } />
+                    </Routes>
+                </Container>
+            </main>
+            <footer className="text-center p-3 footer">
+                <a href="https://github.com/isoamyl50/vieticket-inspector-pwa" target="_blank" rel="noopener noreferrer">
+                   <GitHubIcon className='inline-icon' /> Take a look the GitHub Repo
+                </a>
+            </footer>
+        </div>
     );
 };
 
