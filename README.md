@@ -1,6 +1,6 @@
-# VieTicket Inspector PWA
+# Inspector by VieTicket
 
-#### A streamlined e-ticket inspection <a href="https://web.dev/learn/pwa/" target="_blank">Progressive Web App (PWA)</a> built with <a href="https://react.dev/" target="_blank">React</a>, designed to make event check-ins quick and efficient.
+#### A streamlined e-ticket inspection <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps" target="_blank">Progressive Web App (PWA)</a> built with <a href="https://react.dev/" target="_blank">React</a>, designed to make event check-ins quick and efficient.
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
@@ -40,7 +40,7 @@
    npm start
    ```
 
-## Why VieTicket Inspector?
+## Why Inspector by VieTicket?
 
 * **Speed:**  Focuses on fast, reliable ticket validation to keep lines moving.
 * **Simplicity:** Intuitive interface minimizes training time for staff.
@@ -60,8 +60,8 @@ This software uses the following open source packages and projects:
 - [Node.js](https://nodejs.org/)
 - [nimiq/qr-scanner](https://github.com/nimiq/qr-scanner)
 - [SurajanShrestha/qr-scanner-in-react](https://github.com/SurajanShrestha/qr-scanner-in-react)
-- [create-react-app](https://create-react-app.dev/)
 - [workbox](https://developers.google.com/web/tools/workbox)
+- [Vite](https://vitejs.dev/)
 
 ## License
 
