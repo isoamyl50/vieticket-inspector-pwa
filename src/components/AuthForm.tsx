@@ -1,9 +1,10 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, Form, Card, FloatingLabel, Alert, Row, Col } from 'react-bootstrap';
+import { Button, Form, Card, FloatingLabel, Alert, Row, Col, ButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginIcon from '@mui/icons-material/Login';
 import HourGlassTop from '@mui/icons-material/HourglassTop';
 import ThemeButton from './ThemeButton';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 /**
  * Props for the AuthForm component.
@@ -45,9 +46,10 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
                 <Col xs={12} sm={8} md={6} lg={4}>
                     <header className="d-flex justify-content-between align-items-center mb-3">
                         <h2>VieTicket Inspector</h2>
-                        <div>
+                        <ButtonGroup size='sm'>
+                            <Button variant='outline-secondary' aria-label='Check out the GitHub Repository' title='Check out the GitHub Repository' href='https://github.com/isoamyl50/vieticket-inspector-pwa' target='_blank' rel='noopener noreferrer'><GitHubIcon /></Button>
                             <ThemeButton cycleTheme={cycleTheme} userPref={userPref} />
-                        </div>
+                        </ButtonGroup>
                     </header>
 
                     {error && <Alert variant="info" className='mb-3'>{error}</Alert>}

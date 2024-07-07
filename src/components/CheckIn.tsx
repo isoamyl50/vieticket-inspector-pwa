@@ -1,11 +1,13 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form, Alert, ButtonGroup } from 'react-bootstrap';
 import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ThemeButton from './ThemeButton';
 import QrReader from './QrReader';
+
+import './CheckIn.css'
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -40,11 +42,11 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
         <div>
             <header className="d-flex justify-content-between align-items-center mb-3">
                 <h2>Check-In</h2>
-                <div>
-                    <ThemeButton className="ms-2" userPref={userPref} cycleTheme={cycleTheme} />
-                    <Button aria-label='Help' title='Help' variant="outline-secondary" className="ms-2" onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
-                    <Button aria-label='Log Out' title='Log Out' variant="outline-danger" className='ms-2' onClick={handleLogout}><LogoutIcon /></Button>
-                </div>
+                <ButtonGroup size='sm'>
+                    <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
+                    <Button aria-label='Help' title='Help' variant="outline-secondary" onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
+                    <Button aria-label='Log Out' title='Log Out' variant="outline-secondary" className='btn-logout' onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutIcon /></Button>
+                </ButtonGroup>
             </header>
 
             <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100vh' }}>

@@ -1,33 +1,31 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkMOdeIcon from '@mui/icons-material/DarkMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import BrightnessAutoIcon from '@mui/icons-material/BrightnessAuto';
 
 type ThemePreference = 'auto' | 'light' | 'dark';
 
 interface ThemeButtonProps {
     className?: string;
+    size?: 'sm' | 'lg';
     userPref: ThemePreference;
     cycleTheme: () => void;
 }
 
-function ThemeButton({ userPref, cycleTheme, className }: ThemeButtonProps): JSX.Element {
-    const buttonVariant = {
-        auto: 'outline-secondary',
-        light: 'outline-dark',
-        dark: 'outline-light',
-    }[userPref] as string;
+function ThemeButton({ userPref, cycleTheme, className, size }: ThemeButtonProps): JSX.Element {
 
-    const buttonIcon = {
-        auto: <BrightnessAutoIcon aria-label='Auto Light/Dark Mode' />,
-        light: <LightModeIcon aria-label='Light Mode' />,
-        dark: <DarkMOdeIcon aria-label='Dark Mode' />,
-    }[userPref];
+    const themeInfo = {
+        auto: { icon: <BrightnessAutoIcon />, label: 'Auto Light/Dark Mode' },
+        light: { icon: <LightModeIcon />, label: 'Light Mode' },
+        dark: { icon: <DarkModeIcon />, label: 'Dark Mode' },
+    };
+
+    const { icon, label } = themeInfo[userPref];
 
     return (
-        <Button aria-label='Toggle Light/Dark Mode' title='Toggle Light/Dark Mode' className={className} onClick={cycleTheme} variant={buttonVariant}>
-            {buttonIcon}
+        <Button aria-label={label} title={label + '. Click to toggle.'} className={className} size={size} onClick={cycleTheme} variant='outline-secondary'>
+            {icon}
         </Button>
     );
 }

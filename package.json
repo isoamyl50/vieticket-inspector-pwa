@@ -46,7 +46,7 @@
     "workbox-streams": "^6.6.0"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --host",
     "build": "tsc && vite build",
     "serve": "vite preview"
   },
