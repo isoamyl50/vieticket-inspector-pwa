@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, InputGroup } from 'react-bootstrap';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 interface TicketInputFormProps {
     qrCode: string;
@@ -25,7 +26,7 @@ const TicketInputForm: React.FC<TicketInputFormProps> = ({ qrCode, setQrCode, ha
             raw.substring(16, 20),
             raw.substring(20, 32),
         ].filter(Boolean);
-        return parts.join('-');
+        return parts.join('-').toLowerCase();
     };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,20 +39,22 @@ const TicketInputForm: React.FC<TicketInputFormProps> = ({ qrCode, setQrCode, ha
         <Form onSubmit={handleSubmit}>
             <Form.Group>
                 <Form.Label>Ticket Validation Data</Form.Label>
-                <Form.Control
-                    type='text'
-                    aria-label='Ticket Validation Data'
-                    placeholder='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-                    value={qrCode}
-                    onChange={handleChange}
-                />
+                <InputGroup>
+                    <Form.Control
+                        type='text'
+                        aria-label='Ticket Validation Data'
+                        placeholder='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+                        value={qrCode}
+                        onChange={handleChange}
+                    />
+                    <Button variant='primary' type='submit' title='Submit QR Code' aria-label='Submit QR Code' disabled={!isValidUuid}>
+                        <ArrowForwardIcon />
+                    </Button>
+                </InputGroup>
                 <Form.Text className='small text-muted'>
                     Hyphens will be added automatically.
                 </Form.Text>
             </Form.Group>
-            <Button variant='primary mt-1' type='submit' title='Submit QR Code' disabled={!isValidUuid}>
-                Submit QR Code
-            </Button>
         </Form>
     );
 };

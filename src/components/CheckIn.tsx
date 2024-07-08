@@ -2,7 +2,6 @@ import React, { FormEvent, useState } from 'react';
 import { Button, Alert, ButtonGroup } from 'react-bootstrap';
 import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ThemeButton from './ThemeButton';
 import QrReader from './QrReader';
@@ -43,19 +42,18 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
         <div>
             <header className='d-flex justify-content-between align-items-center mb-3'>
                 <div>
-                    <h2 className='mb-0'>
+                    <h4 className='mb-0'>
                         Inspector
-                    </h2>
-                    <figcaption className='text-muted small mt-0 fw-light'>by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
+                    </h4>
+                    <figcaption className='text-muted small mt-0 mb-0 fw-light'>by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
                 </div>
                 <ButtonGroup size='sm' className='text-end'>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
-                    <Button aria-label='Help' title='Help' variant='outline-secondary' onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
                     <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout' onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutIcon /></Button>
                 </ButtonGroup>
             </header>
 
-            <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100vh' }}>
+            <main onClick={qrScanned ? handleScanAnother : undefined} style={{minHeight: '100vh'}}>
                 <div className='row g-4'>
                     <div className='col-md-6'>
                         {qrScanned ? (
