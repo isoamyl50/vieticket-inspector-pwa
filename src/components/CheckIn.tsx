@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react';
-import { Button, Form, Alert, ButtonGroup } from 'react-bootstrap';
+import { Button, Alert, ButtonGroup } from 'react-bootstrap';
 import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -8,6 +8,7 @@ import ThemeButton from './ThemeButton';
 import QrReader from './QrReader';
 
 import './CheckIn.css'
+import TicketInputForm from './TicketInputForm';
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -40,50 +41,34 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
 
     return (
         <div>
-            <header className="d-flex justify-content-between align-items-center mb-3">
+            <header className='d-flex justify-content-between align-items-center mb-3'>
                 <div>
                     <h2 className='mb-0'>
                         Inspector
                     </h2>
-                    <figcaption className="text-muted small mt-0 fw-light">by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
+                    <figcaption className='text-muted small mt-0 fw-light'>by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
                 </div>
                 <ButtonGroup size='sm' className='text-end'>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
-                    <Button aria-label='Help' title='Help' variant="outline-secondary" onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
-                    <Button aria-label='Log Out' title='Log Out' variant="outline-secondary" className='btn-logout' onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutIcon /></Button>
+                    <Button aria-label='Help' title='Help' variant='outline-secondary' onClick={() => window.open('https://docs.vieticket.io.vn/check-in/checkin_using_pwa', '_blank')}><HelpOutlineIcon /></Button>
+                    <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout' onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutIcon /></Button>
                 </ButtonGroup>
             </header>
 
             <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100vh' }}>
-                <div className="row g-4">
-                    <div className="col-md-6">
+                <div className='row g-4'>
+                    <div className='col-md-6'>
                         {qrScanned ? (
-                            <Alert variant="info" className="mt-0 mb-0">Press <strong>Space</strong> or tap screen to validate another ticket.</Alert>
+                            <Alert variant='info' className='mt-0 mb-0'>Press <strong>Space</strong> or tap screen to validate another ticket.</Alert>
                         ) : (
                             <>
                                 <QrReader onScan={onQrScan} />
                                 <br />
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Group>
-                                        <Form.Label>Ticket Validation Data</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-                                            value={qrCode}
-                                            onChange={e => setQrCode(e.target.value)}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Input the validation data manually if the QR code cannot be scanned.
-                                        </Form.Text>
-                                    </Form.Group>
-                                    <Button variant="primary" type="submit" title='Submit QR Code'>
-                                        Submit QR Code
-                                    </Button>
-                                </Form>
+                                <TicketInputForm qrCode={qrCode} setQrCode={setQrCode} handleSubmit={handleSubmit} />
                             </>
                         )}
                     </div>
-                    <div className="col-md-6">
+                    <div className='col-md-6'>
                         <TicketDetailsCard ticketDetails={ticketDetails} isLoading={isLoading} error={error} />
                     </div>
                 </div>

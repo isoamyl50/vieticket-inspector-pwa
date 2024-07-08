@@ -1,8 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { Button, Form, Card, FloatingLabel, Alert, Row, Col, ButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginIcon from '@mui/icons-material/Login';
-import HourGlassTop from '@mui/icons-material/HourglassTop';
 import ThemeButton from './ThemeButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -89,11 +87,11 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
                                         />
                                     </FloatingLabel>
                                 </Form.Group>
-                                <Button className="w-100" type='submit' variant="primary" disabled={isLoading}><LoginIcon /> Login</Button>
+                                <Button className="w-100" type='submit' variant="primary" disabled={isLoading}>Login</Button>
                             </Form>
                         </Card.Body>
                     </Card>
-                    <a href="https://www.vieticket.io.vn/auth/reset-password" className="d-block mt-3 text-center text-decoration-none">Forgot your password?</a>
+                    <a href="https://www.vieticket.io.vn/auth/reset-password" className="d-block mt-3 text-center text-decoration-none">Forgot your username or password?</a>
                 </Col>
             </Row>
         </>
