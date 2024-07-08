@@ -85,14 +85,13 @@ export const useAuth = () => {
             if (err instanceof AuthError) {
                 setError(err.message);
                 // Check if error is network error
-            }
-            else if (axios.isAxiosError(error) && !error.response) {
+            } else if (axios.isAxiosError(err) && !err.response) {
                 setError('Failed to establish connection to the server. Please check your network connection and try again later.');
                 // Check if error status starts with 5 (server error)
-            } else if (axios.isAxiosError(error) && error.response && error.response.status.toString().startsWith('5')) {
+            } else if (axios.isAxiosError(err) && err.response && err.response.status.toString().startsWith('5')) {
                 setError('Server error. Please try again later.');
                 // Check if error status is 401 (unauthorized)
-            } else if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+            } else if (axios.isAxiosError(err) && err.response && err.response.status === 401) {
                 setError(`Invalid login. Please try again.`);
                 // Any unexpected error
             } else {
