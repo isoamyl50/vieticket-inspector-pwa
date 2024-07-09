@@ -42,9 +42,21 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
     const adjustMainHeight = () => {
         const header = document.querySelector("header");
         const main = document.querySelector("main");
-        if (header && main) {
+        const parentContainer = document.querySelector(".container"); // Select the parent container
+
+        if (header && main && parentContainer) {
             const headerHeight = header.offsetHeight;
-            main.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+            // Get computed styles of the header
+            const headerStyle = window.getComputedStyle(header);
+            // Get computed styles of the parent container
+            const containerStyle = window.getComputedStyle(parentContainer);
+
+            // Extract margins and paddings, remove 'px', and convert to numbers
+            const headerMargins = parseInt(headerStyle.marginBottom, 10) + parseInt(headerStyle.marginTop, 10);
+            const containerPaddings = parseInt(containerStyle.paddingTop, 10) + parseInt(containerStyle.paddingBottom, 10);
+
+            // Include the bottom margin and container paddings in the calculation
+            main.style.minHeight = `calc(100vh - ${headerHeight + headerMargins + containerPaddings}px)`;
         }
     };
 
