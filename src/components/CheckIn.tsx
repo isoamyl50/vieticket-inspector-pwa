@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { Button, Alert, ButtonGroup } from 'react-bootstrap';
 import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,7 +36,26 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
             onManualSubmit(qrCode);
             setQrCode('');
         }
+    }
+
+    // Function to adjust the main element's height
+    const adjustMainHeight = () => {
+        const header = document.querySelector("header");
+        const main = document.querySelector("main");
+        if (header && main) {
+            const headerHeight = header.offsetHeight;
+            main.style.minHeight = `calc(100vh - ${headerHeight}px)`;
+        }
     };
+
+    // useEffect hook to run the adjustMainHeight function on component mount and window resize
+    useEffect(() => {
+        adjustMainHeight();
+        window.addEventListener("resize", adjustMainHeight);
+
+        // Cleanup function to remove the event listener
+        return () => window.removeEventListener("resize", adjustMainHeight);
+    }, []);
 
     return (
         <div>
@@ -53,7 +72,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                 </ButtonGroup>
             </header>
 
-            <main onClick={qrScanned ? handleScanAnother : undefined} style={{minHeight: '100vh'}}>
+            <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100vh' }}>
                 <div className='row g-4'>
                     <div className='col-md-6'>
                         {qrScanned ? (
