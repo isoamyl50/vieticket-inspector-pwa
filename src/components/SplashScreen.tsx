@@ -15,7 +15,7 @@ const SplashScreen: React.FC = () => {
             const containerPaddings = parseInt(containerStyle.paddingTop, 10) + parseInt(containerStyle.paddingBottom, 10);
 
             // Include the bottom margin and container paddings in the calculation
-            childContainer.style.minHeight = `calc(99vh - ${containerPaddings}px)`;
+            childContainer.style.minHeight = `calc(99dvh - ${containerPaddings}px)`;
         }
     };
 

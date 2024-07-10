@@ -56,7 +56,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
             const containerPaddings = parseInt(containerStyle.paddingTop, 10) + parseInt(containerStyle.paddingBottom, 10);
 
             // Include the bottom margin and container paddings in the calculation
-            main.style.minHeight = `calc(99vh - ${headerHeight + headerMargins + containerPaddings}px)`;
+            main.style.minHeight = `calc(99dvh - ${headerHeight + headerMargins + containerPaddings}px)`;
         }
     };
 
@@ -84,7 +84,7 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
                 </ButtonGroup>
             </header>
 
-            <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100vh' }}>
+            <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100dvh' }}>
                 <div className='row g-4'>
                     <div className='col-md-6'>
                         {qrScanned ? (
