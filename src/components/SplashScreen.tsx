@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
 
 const SplashScreen: React.FC = () => {
     // Function to adjust the main element's height

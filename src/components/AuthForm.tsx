@@ -41,7 +41,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ error, setError, isLoading, onLogin
     return (
         <>
             <Row className="justify-content-center">
-                <Col xs={12} sm={8} md={6} lg={4}>
+                <Col xs={12} sm={9} md={7} lg={6} xl={5} xxl={4}>
 
                     <header className="d-flex justify-content-between align-items-center mb-3">
                         <div>
