@@ -8,11 +8,19 @@ const SplashScreen: React.FC = () => {
     const [selectedTip, setSelectedTip] = useState('');
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
+        // Function to select and set a random tip
+        const updateTip = () => {
             const randomTip = tips[Math.floor(Math.random() * tips.length)];
             setSelectedTip(randomTip);
-        }, 2560);
+        };
     
+        // Call it once immediately to show a tip on component mount
+        updateTip();
+    
+        // Set up the interval to update the tip every 2560 milliseconds
+        const intervalId = setInterval(updateTip, 2560);
+    
+        // Cleanup function to clear the interval when the component unmounts
         return () => clearInterval(intervalId);
     }, []);
 
