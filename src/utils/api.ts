@@ -26,7 +26,7 @@ export const fetchTicketDetails = async (qrCode: string, token: string) => {
  * @returns A Promise that resolves to the server's response.
  */
 export const requestPasswordReset = async (email: string) => {
-    const response = await axios.post(`${apiBaseUrl}/api/v1/auth/password-reset/request-reset`, { email });
+    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/request-reset`, { email });
     return response.data;
 };
 
@@ -37,7 +37,7 @@ export const requestPasswordReset = async (email: string) => {
  * @returns A Promise that resolves to the server's response.
  */
 export const verifyOtp = async (email: string, otp: string) => {
-    const response = await axios.post(`${apiBaseUrl}/api/v1/auth/verify-otp`, { email, otp });
+    const response = await axios.post(`${apiBaseUrl}/auth/verify-otp`, { email, otp });
     return response.data;
 };
 
@@ -46,7 +46,9 @@ export const verifyOtp = async (email: string, otp: string) => {
  * @param newPassword - The new password chosen by the user.
  * @returns A Promise that resolves to the server's response.
  */
-export const setNewPassword = async (newPassword: string) => {
-    const response = await axios.post(`${apiBaseUrl}/api/v1/auth/password-reset/new-password`, { newPassword });
+export const setNewPassword = async (token: string, newPassword: string) => {
+    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/new-password`, { token, newPassword }, {
+        withCredentials: true // Include this to send cookies with the request
+    });
     return response.data;
 };

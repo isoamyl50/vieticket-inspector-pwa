@@ -56,12 +56,17 @@
 
 This software uses the following open source packages and projects:
 
+- [TypeScript](https://www.typescriptlang.org/)
 - [React](https://react.dev/)
 - [Node.js](https://nodejs.org/)
 - [nimiq/qr-scanner](https://github.com/nimiq/qr-scanner)
 - [SurajanShrestha/qr-scanner-in-react](https://github.com/SurajanShrestha/qr-scanner-in-react)
 - [workbox](https://developers.google.com/web/tools/workbox)
 - [Vite](https://vitejs.dev/)
+- [PWA Plugin for Vite](https://vite-pwa-org.netlify.app/)
+- [react-bootstrap](https://react-bootstrap.netlify.app/)
+
+and more.
 
 ## License
 

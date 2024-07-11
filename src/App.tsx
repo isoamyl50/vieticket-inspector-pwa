@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import AuthForm from './components/AuthForm';
-import CheckIn from './components/CheckIn';
-import { useAuth } from './hooks/useAuth';
-import { fetchTicketDetails } from './utils/api';
-import { beep } from './utils/beep';
-import { Container } from 'react-bootstrap';
-import { useThemes } from './hooks/useThemes';
+import CheckIn from './components/check-in-screen/CheckIn';
+import {useAuth} from './hooks/useAuth';
+import {fetchTicketDetails} from './utils/api';
+import {beep} from './utils/beep';
+import {Container} from 'react-bootstrap';
+import {useThemes} from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import {Routes, Route, useNavigate, useLocation} from 'react-router-dom';
 import SplashScreen from './components/SplashScreen';
+import ResetPasswordScreen from './components/reset-password-screen/ResetPasswordScreen';
 
 interface TicketDetails {
     leadVisitor: string;
@@ -20,25 +21,36 @@ interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const { cycleTheme, userPref } = useThemes();
-    const { isLoading: authLoading, error: authError, setError: setAuthError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone } = useAuth();
+    const {cycleTheme, userPref} = useThemes();
+    const {
+        isLoading: authLoading,
+        error: authError,
+        setError: setAuthError,
+        authToken,
+        login,
+        logout,
+        isAuthenticated,
+        isInitialAuthCheckDone
+    } = useAuth();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
     const [qrCodeState, setQrCodeState] = useState<string | null>(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        if (!isInitialAuthCheckDone) {
-            navigate('/');
-        } else if (isAuthenticated) {
-            navigate('/check-in');
-        } else {
-            navigate('/auth/login');
+        if (location.pathname !== '/auth/reset-password') {
+            if (!isInitialAuthCheckDone) {
+                navigate('/');
+            } else if (isAuthenticated) {
+                navigate('/check-in');
+            } else {
+                navigate('/auth/login');
+            }
         }
-    }, [isAuthenticated, navigate, isInitialAuthCheckDone]);
-
+    }, [isAuthenticated, navigate, isInitialAuthCheckDone, location.pathname]);
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             if (event.code === 'Space') {
@@ -105,7 +117,6 @@ const App: React.FC = () => {
                     // Handle errors and play the error sound
                     setError('An unexpected error occurred');
                 }
-                beep(false);
             } finally {
                 setIsLoading(false);
             }
@@ -136,7 +147,7 @@ const App: React.FC = () => {
         <Container className="App p-3">
             <Routes>
                 <Route path="/" element={
-                    <SplashScreen />
+                    <SplashScreen/>
                 }
                 />
                 <Route path="/auth/login" element={
@@ -148,7 +159,7 @@ const App: React.FC = () => {
                         cycleTheme={cycleTheme}
                         userPref={userPref}
                     />
-                } />
+                }/>
                 <Route path="/check-in" element={
                     <CheckIn
                         onQrScan={handleQrCode}
@@ -163,7 +174,13 @@ const App: React.FC = () => {
                         cycleTheme={cycleTheme}
                         userPref={userPref}
                     />
-                } />
+                }/>
+                <Route path="/auth/reset-password" element={
+                    <ResetPasswordScreen
+                        cycleTheme={cycleTheme}
+                        userPref={userPref}
+                    />
+                }/>
             </Routes>
         </Container>
     );

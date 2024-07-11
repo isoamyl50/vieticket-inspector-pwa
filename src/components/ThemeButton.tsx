@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import BrightnessAutoIcon from '@mui/icons-material/BrightnessAuto';
+import {BrightnessAutoOutlined, DarkModeOutlined, LightModeOutlined} from "@mui/icons-material";
 
 type ThemePreference = 'auto' | 'light' | 'dark';
 
@@ -16,9 +14,9 @@ interface ThemeButtonProps {
 const ThemeButton: React.FC<ThemeButtonProps> = ({ userPref, cycleTheme, className, size }) => {
 
     const themeInfo = {
-        auto: { icon: <BrightnessAutoIcon />, label: 'Auto Light/Dark Mode' },
-        light: { icon: <LightModeIcon />, label: 'Light Mode' },
-        dark: { icon: <DarkModeIcon />, label: 'Dark Mode' },
+        auto: { icon: <BrightnessAutoOutlined />, label: 'Auto Light/Dark Mode' },
+        light: { icon: <LightModeOutlined />, label: 'Light Mode' },
+        dark: { icon: <DarkModeOutlined />, label: 'Dark Mode' },
     };
 
     const { icon, label } = themeInfo[userPref];

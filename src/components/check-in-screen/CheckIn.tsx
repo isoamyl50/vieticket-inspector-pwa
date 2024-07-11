@@ -2,12 +2,13 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import { Button, Alert, ButtonGroup } from 'react-bootstrap';
 import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ThemeButton from './ThemeButton';
+import ThemeButton from '../ThemeButton';
 import QrReader from './QrReader';
 
 import './CheckIn.css'
 import TicketInputForm from './TicketInputForm';
+import Branding from "../Branding";
+import {LogoutOutlined} from "@mui/icons-material";
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -72,15 +73,10 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
     return (
         <div>
             <header className='d-flex justify-content-between align-items-center mb-3'>
-                <div>
-                    <h4 className='mb-0'>
-                        Inspector
-                    </h4>
-                    <figcaption className='text-muted small mt-0 mb-0 fw-light'>by <a className='fw-semibold text-decoration-none text-muted' href='https://www.vieticket.io.vn/' target='_blank'>VieTicket</a></figcaption>
-                </div>
+                <Branding />
                 <ButtonGroup size='sm' className='text-end'>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
-                    <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout' onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutIcon /></Button>
+                    <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout' onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutOutlined /></Button>
                 </ButtonGroup>
             </header>
 
