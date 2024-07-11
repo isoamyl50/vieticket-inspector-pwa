@@ -7,8 +7,8 @@ import QrReader from './QrReader';
 
 import './CheckIn.css'
 import TicketInputForm from './TicketInputForm';
-import Branding from "../Branding";
-import {LogoutOutlined} from "@mui/icons-material";
+import Branding from '../Branding';
+import {LogoutOutlined} from '@mui/icons-material';
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -41,9 +41,9 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
 
     // Function to adjust the main element's height
     const adjustMainHeight = () => {
-        const header = document.querySelector("header");
-        const main = document.querySelector("main");
-        const parentContainer = document.querySelector(".container"); // Select the parent container
+        const header = document.querySelector('header');
+        const main = document.querySelector('main');
+        const parentContainer = document.querySelector('.container'); // Select the parent container
 
         if (header && main && parentContainer) {
             const headerHeight = header.offsetHeight;
@@ -64,10 +64,10 @@ const CheckIn: React.FC<CheckInProps> = ({ onQrScan, ticketDetails, error, isLoa
     // useEffect hook to run the adjustMainHeight function on component mount and window resize
     useEffect(() => {
         adjustMainHeight();
-        window.addEventListener("resize", adjustMainHeight);
+        window.addEventListener('resize', adjustMainHeight);
 
         // Cleanup function to remove the event listener
-        return () => window.removeEventListener("resize", adjustMainHeight);
+        return () => window.removeEventListener('resize', adjustMainHeight);
     }, []);
 
     return (

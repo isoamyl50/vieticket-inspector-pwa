@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Button, FloatingLabel, Form} from "react-bootstrap";
-import {verifyOtp} from "../../utils/api";
-import axios from "axios";
+import React, {useState} from 'react';
+import {Button, FloatingLabel, Form} from 'react-bootstrap';
+import {verifyOtp} from '../../utils/api';
+import axios from 'axios';
 
 interface OTPInputFormProps {
     setMessage: (message: string) => void;
@@ -46,14 +46,15 @@ const OTPInputForm: React.FC<OTPInputFormProps> = ({setMessage, setLoading, isLo
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
+            <Form.Group className='mb-3'>
                 <FloatingLabel
-                    controlId="floatingInput"
+                    controlId='floatingInput'
                     label={'One-Time Password (OTP)'}
                 >
                     <Form.Control
-                        type="text"
-                        placeholder="Enter OTP"
+                        autoComplete='one-time-code'
+                        type='text'
+                        placeholder='Enter OTP'
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
                         disabled={isLoading}
@@ -61,9 +62,9 @@ const OTPInputForm: React.FC<OTPInputFormProps> = ({setMessage, setLoading, isLo
                 </FloatingLabel>
             </Form.Group>
             <Button
-                className="w-100"
+                className='w-100'
                 type='submit'
-                variant="primary"
+                variant='primary'
                 disabled={isLoading}
             >
                 Submit

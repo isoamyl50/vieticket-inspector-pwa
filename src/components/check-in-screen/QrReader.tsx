@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 // Styles
-import "./QrStyles.css";
+import './QrStyles.css';
 
 // Qr Scanner
-import QrScanner from "qr-scanner";
-import React from "react";
+import QrScanner from 'qr-scanner';
+import React from 'react';
 
 interface QrReaderProps {
     onScan: (qrCode: string) => void;
@@ -39,7 +39,7 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan }) => {
             if (videoEl?.current && !scannerInstance) {
                 scannerInstance = new QrScanner(videoEl?.current, onScanSuccess, {
                     onDecodeError: onScanFail,
-                    preferredCamera: "environment",
+                    preferredCamera: 'environment',
                 });
             }
             scannerInstance?.start().then(() => setQrOn(true)).catch((err) => {
@@ -61,16 +61,16 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan }) => {
         };
     }, [onScanSuccess]);
 
-    // ❌ If "camera" is not allowed in browser permissions, show an alert.
+    // ❌ If 'camera' is not allowed in browser permissions, show an alert.
     useEffect(() => {
         if (!qrOn)
             alert(
-                "Camera is blocked or not accessible. Please allow camera in your browser permissions and Reload."
+                'Camera is blocked or not accessible. Please allow camera in your browser permissions and Reload.'
             );
     }, [qrOn]);
 
     return (
-        <div className="qr-reader">
+        <div className='qr-reader'>
             {/* QR */}
             <video ref={videoEl}></video>
         </div>

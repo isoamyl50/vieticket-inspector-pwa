@@ -1,15 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AuthForm from './components/AuthForm';
 import CheckIn from './components/check-in-screen/CheckIn';
-import {useAuth} from './hooks/useAuth';
-import {fetchTicketDetails} from './utils/api';
-import {beep} from './utils/beep';
-import {Container} from 'react-bootstrap';
-import {useThemes} from './hooks/useThemes';
+import { useAuth } from './hooks/useAuth';
+import { fetchTicketDetails } from './utils/api';
+import { beep } from './utils/beep';
+import { Container } from 'react-bootstrap';
+import { useThemes } from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Routes, Route, useNavigate, useLocation} from 'react-router-dom';
-import SplashScreen from './components/SplashScreen';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import SplashScreen from './components/splash-screen/SplashScreen';
 import ResetPasswordScreen from './components/reset-password-screen/ResetPasswordScreen';
 
 interface TicketDetails {
@@ -21,7 +21,7 @@ interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const {cycleTheme, userPref} = useThemes();
+    const { cycleTheme, userPref } = useThemes();
     const {
         isLoading: authLoading,
         error: authError,
@@ -144,13 +144,13 @@ const App: React.FC = () => {
     }, [qrCodeState, processQrCode]);
 
     return (
-        <Container className="App p-3">
-            <Routes>
-                <Route path="/" element={
-                    <SplashScreen/>
-                }
-                />
-                <Route path="/auth/login" element={
+        <Routes>
+            <Route path='/' element={
+                <SplashScreen />
+            }
+            />
+            <Route path='/auth/login' element={
+                <Container className='p-3'>
                     <AuthForm
                         error={authError}
                         setError={setAuthError}
@@ -159,8 +159,10 @@ const App: React.FC = () => {
                         cycleTheme={cycleTheme}
                         userPref={userPref}
                     />
-                }/>
-                <Route path="/check-in" element={
+                </Container>
+            } />
+            <Route path='/check-in' element={
+                <Container className='p-3'>
                     <CheckIn
                         onQrScan={handleQrCode}
                         ticketDetails={ticketDetails}
@@ -174,15 +176,17 @@ const App: React.FC = () => {
                         cycleTheme={cycleTheme}
                         userPref={userPref}
                     />
-                }/>
-                <Route path="/auth/reset-password" element={
+                </Container>
+            } />
+            <Route path='/auth/reset-password' element={
+                <Container className='p-3'>
                     <ResetPasswordScreen
                         cycleTheme={cycleTheme}
                         userPref={userPref}
                     />
-                }/>
-            </Routes>
-        </Container>
+                </Container>
+            } />
+        </Routes>
     );
 };
 

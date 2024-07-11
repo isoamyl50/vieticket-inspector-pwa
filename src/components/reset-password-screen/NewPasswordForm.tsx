@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Button, FloatingLabel, Form} from "react-bootstrap";
-import {setNewPassword} from "../../utils/api";
-import axios from "axios";
+import React, {useState} from 'react';
+import {Button, FloatingLabel, Form} from 'react-bootstrap';
+import {setNewPassword} from '../../utils/api';
+import axios from 'axios';
 
 interface NewPasswordFormProps {
     setMessage: (message: string) => void;
@@ -51,22 +51,24 @@ const NewPasswordForm: React.FC<NewPasswordFormProps> = ({setMessage, setLoading
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-                <FloatingLabel controlId="floatingInput" label={'New Password'}>
+            <Form.Group className='mb-3'>
+                <FloatingLabel controlId='floatingInput' label={'New Password'}>
                     <Form.Control
-                        type="password"
-                        placeholder="New Password"
+                        autoComplete='new-password'
+                        type='password'
+                        placeholder='New Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         disabled={isLoading}
                     />
                 </FloatingLabel>
             </Form.Group>
-            <Form.Group className="mb-3">
-                <FloatingLabel controlId="floatingInput" label={'Confirm new Password'}>
+            <Form.Group className='mb-3'>
+                <FloatingLabel controlId='floatingInput' label={'Confirm new Password'}>
                     <Form.Control
-                        type="password"
-                        placeholder="Retype New Password"
+                        autoComplete='new-password'
+                        type='password'
+                        placeholder='Retype New Password'
                         value={retypePassword}
                         onChange={(e) => setRetypePassword(e.target.value)}
                         disabled={isLoading}
@@ -74,9 +76,9 @@ const NewPasswordForm: React.FC<NewPasswordFormProps> = ({setMessage, setLoading
                 </FloatingLabel>
             </Form.Group>
             <Button
-                className="w-100"
+                className='w-100'
                 type='submit'
-                variant="primary"
+                variant='primary'
                 disabled={isLoading}
             >
                 Reset Password

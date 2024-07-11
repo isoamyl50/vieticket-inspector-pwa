@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import {BrightnessAutoOutlined, DarkModeOutlined, LightModeOutlined} from "@mui/icons-material";
+import {BrightnessAutoOutlined, DarkModeOutlined, LightModeOutlined} from '@mui/icons-material';
 
 type ThemePreference = 'auto' | 'light' | 'dark';
 

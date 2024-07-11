@@ -23,7 +23,7 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, is
 
     if (isLoading) {
         return (
-            <Card className="mt-0" border='info'>
+            <Card className='mt-0' border='info'>
                 <Card.Header>
                     <Skeleton width={`${getRandomWidth()}%`} />
                 </Card.Header>
@@ -38,15 +38,15 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, is
     }
 
     if (error) {
-        return <Alert variant="danger" className="mt-0">{error}</Alert>;
+        return <Alert variant='danger' className='mt-0'>{error}</Alert>;
     }
 
     if (ticketDetails) {
         return (
             <Card
-                bg={ticketDetails.status !== "PURCHASED" ? 'danger' : undefined}
-                text={ticketDetails.status !== "PURCHASED" ? 'light' : undefined}
-                border={ticketDetails.status !== "PURCHASED" ? 'danger' : undefined}
+                bg={ticketDetails.status !== 'PURCHASED' ? 'danger' : undefined}
+                text={ticketDetails.status !== 'PURCHASED' ? 'light' : undefined}
+                border={ticketDetails.status !== 'PURCHASED' ? 'danger' : undefined}
                 className={`mt-0`}>
                 <Card.Header><strong>{ticketDetails.message}</strong></Card.Header>
                 <Card.Body>

@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Alert, Card, Col, Row} from 'react-bootstrap';
-import ThemeButton from "../ThemeButton";
-import {Link} from "react-router-dom";
-import {ArrowBackOutlined, CheckCircleOutlineOutlined} from "@mui/icons-material";
-import Branding from "../Branding";
-import EmailOrUsernameForm from "./EmailOrUsernameForm";
-import OTPInputForm from "./OTPInputForm";
-import NewPasswordForm from "./NewPasswordForm";
+import ThemeButton from '../ThemeButton';
+import {Link} from 'react-router-dom';
+import {ArrowBackOutlined, CheckCircleOutlineOutlined} from '@mui/icons-material';
+import Branding from '../Branding';
+import EmailOrUsernameForm from './EmailOrUsernameForm';
+import OTPInputForm from './OTPInputForm';
+import NewPasswordForm from './NewPasswordForm';
 
 interface ResetPasswordScreenProps {
     userPref: 'light' | 'dark' | 'auto';
@@ -27,8 +27,8 @@ const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({cycleTheme, us
         <Row className='justify-content-center'>
             <Col xs={12} sm={9} md={7} lg={6} xl={5} xxl={4}>
 
-                <header className="d-flex justify-content-between align-items-center mb-3">
-                    <div className="d-flex align-items-center">
+                <header className='d-flex justify-content-between align-items-center mb-3'>
+                    <div className='d-flex align-items-center'>
                         <Link to={'/auth/login'}
                               className={`btn btn-outline-primary btn-sm ${isLoading ? 'disabled' : ''}`}
                               onClick={(e) => isLoading && e.preventDefault()}
@@ -40,7 +40,7 @@ const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = ({cycleTheme, us
                     <ThemeButton size={'sm'} className='text-end' cycleTheme={cycleTheme} userPref={userPref}/>
                 </header>
 
-                {message && <Alert variant="info" className='mb-3'>{message}</Alert>}
+                {message && <Alert variant='info' className='mb-3'>{message}</Alert>}
 
                 <Card className='p-1 container'>
                     <Card.Body>

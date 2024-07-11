@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeButton from './ThemeButton';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import {Link} from 'react-router-dom';
-import Branding from "./Branding";
+import Branding from './Branding';
 
 /**
  * Props for the AuthForm component.
@@ -42,10 +42,10 @@ const AuthForm: React.FC<AuthFormProps> = ({error, setError, isLoading, onLogin,
 
     return (
         <>
-            <Row className="justify-content-center">
+            <Row className='justify-content-center'>
                 <Col xs={12} sm={9} md={7} lg={6} xl={5} xxl={4}>
 
-                    <header className="d-flex justify-content-between align-items-center mb-3">
+                    <header className='d-flex justify-content-between align-items-center mb-3'>
                         <Branding/>
                         <ButtonGroup className='text-end' size='sm'>
                             <ThemeButton cycleTheme={cycleTheme} userPref={userPref}/>
@@ -57,45 +57,47 @@ const AuthForm: React.FC<AuthFormProps> = ({error, setError, isLoading, onLogin,
                     </header>
 
 
-                    {error && <Alert variant="info" className='mb-3'>{error}</Alert>}
+                    {error && <Alert variant='info' className='mb-3'>{error}</Alert>}
                     <Card className='p-1 container'>
                         <Card.Body>
                             <Card.Title className='mb-3'>Sign in</Card.Title>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3">
+                                <Form.Group className='mb-3'>
                                     <FloatingLabel
-                                        controlId="floatingInput"
-                                        label="Username"
+                                        controlId='floatingInput'
+                                        label='Username'
                                     >
                                         <Form.Control
-                                            type="text"
-                                            placeholder="Username"
+                                            autoComplete='username'
+                                            type='text'
+                                            placeholder='Username'
                                             value={username}
                                             disabled={isLoading}
                                             onChange={(e) => setUsername(e.target.value)}
                                         />
                                     </FloatingLabel>
                                 </Form.Group>
-                                <Form.Group className="mb-3">
+                                <Form.Group className='mb-3'>
                                     <FloatingLabel
-                                        controlId="floatingPassword"
-                                        label="Password"
+                                        controlId='floatingPassword'
+                                        label='Password'
                                     >
                                         <Form.Control
-                                            type="password"
-                                            placeholder="Password"
+                                            autoComplete='current-password'
+                                            type='password'
+                                            placeholder='Password'
                                             value={password}
                                             disabled={isLoading}
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
                                     </FloatingLabel>
                                 </Form.Group>
-                                <Button className="w-100" type='submit' variant="primary"
+                                <Button className='w-100' type='submit' variant='primary'
                                         disabled={isLoading}>Login</Button>
                             </Form>
                         </Card.Body>
                     </Card>
-                    <Link to="/auth/reset-password" className="d-block mt-3 text-center text-decoration-none">Forgot
+                    <Link to='/auth/reset-password' className='d-block mt-3 text-center text-decoration-none'>Forgot
                         your username or password?</Link>
                 </Col>
             </Row>

@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Button, FloatingLabel, Form} from "react-bootstrap";
-import {requestPasswordReset} from "../../utils/api";
-import axios from "axios";
+import React, { useState } from 'react';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { requestPasswordReset } from '../../utils/api';
+import axios from 'axios';
 
 interface EmailOrUsernameFormProps {
     setMessage: (message: string) => void;
@@ -11,7 +11,7 @@ interface EmailOrUsernameFormProps {
     setParentEmail: (email: string) => void;
 }
 
-const EmailOrUsernameForm: React.FC<EmailOrUsernameFormProps> = ({setMessage, isLoading, setLoading, setSuccess, setParentEmail}) => {
+const EmailOrUsernameForm: React.FC<EmailOrUsernameFormProps> = ({ setMessage, isLoading, setLoading, setSuccess, setParentEmail }) => {
     const [emailOrUsername, setEmailOrUsername] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,14 +45,15 @@ const EmailOrUsernameForm: React.FC<EmailOrUsernameFormProps> = ({setMessage, is
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
+            <Form.Group className='mb-3'>
                 <FloatingLabel
-                    controlId="floatingInput"
+                    controlId='floatingInput'
                     label={'Email or Username'}
                 >
                     <Form.Control
-                        type="text"
-                        placeholder="Enter email or username"
+                        autoComplete='email username'
+                        type='text'
+                        placeholder='Enter email or username'
                         value={emailOrUsername}
                         onChange={(e) => setEmailOrUsername(e.target.value)}
                         disabled={isLoading}
@@ -60,9 +61,9 @@ const EmailOrUsernameForm: React.FC<EmailOrUsernameFormProps> = ({setMessage, is
                 </FloatingLabel>
             </Form.Group>
             <Button
-                className="w-100"
+                className='w-100'
                 type='submit'
-                variant="primary"
+                variant='primary'
                 disabled={isLoading}
             >
                 Submit
