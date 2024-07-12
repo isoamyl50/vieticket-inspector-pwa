@@ -91,9 +91,6 @@ const CheckIn: React.FC<CheckInProps> = ({
             <header className='d-flex justify-content-between align-items-center mb-3'>
                 <Branding/>
                 <ButtonGroup size='sm' className='text-end'>
-                    <Button aria-label={'Change camera orientation'} title={'Change camera orientation'} variant={'outline-secondary'} onClick={changeCameraOrientation} >
-                        <CameraswitchOutlined/>
-                    </Button>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme}/>
                     <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout'
                             onClick={handleLogout} style={{color: 'var(--bs-danger)'}}><LogoutOutlined/></Button>
