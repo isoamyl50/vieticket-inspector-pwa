@@ -12,7 +12,14 @@ interface OTPInputFormProps {
     email: string;
 }
 
-const OTPInputForm: React.FC<OTPInputFormProps> = ({setMessage, setLoading, isLoading, setSuccess, email, setToken}) => {
+const OTPInputForm: React.FC<OTPInputFormProps> = ({
+                                                       setMessage,
+                                                       setLoading,
+                                                       isLoading,
+                                                       setSuccess,
+                                                       email,
+                                                       setToken
+                                                   }) => {
     const [otp, setOtp] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

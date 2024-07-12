@@ -8,7 +8,6 @@ export function beep(succeed: boolean = true) {
     audio.play().catch(error => {
         if (error.name === 'NotAllowedError') {
             // NOOP if the browser blocks the audio autoplay
-            ;;
         } else {
             console.error('Error playing audio:', error);
         }

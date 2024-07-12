@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 // Styles
 import './QrStyles.css';
 
 // Qr Scanner
 import QrScanner from 'qr-scanner';
-import React from 'react';
 
 interface QrReaderProps {
     onScan: (qrCode: string) => void;
+    cameraOrientation?: 'environment' | 'user';
 }
 
-const QrReader: React.FC<QrReaderProps> = ({ onScan }) => {
+const QrReader: React.FC<QrReaderProps> = ({ onScan, cameraOrientation }) => {
     // QR States
     const scanner = useRef<QrScanner>();
     const videoEl = useRef<HTMLVideoElement>(null);
@@ -39,7 +39,7 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan }) => {
             if (videoEl?.current && !scannerInstance) {
                 scannerInstance = new QrScanner(videoEl?.current, onScanSuccess, {
                     onDecodeError: onScanFail,
-                    preferredCamera: 'environment',
+                    preferredCamera: cameraOrientation,
                 });
             }
             scannerInstance?.start().then(() => setQrOn(true)).catch((err) => {
@@ -59,7 +59,7 @@ const QrReader: React.FC<QrReaderProps> = ({ onScan }) => {
             stopScanner();
             scannerInstance = null; // Release the instance
         };
-    }, [onScanSuccess]);
+    }, [onScanSuccess, cameraOrientation]);
 
     // ❌ If 'camera' is not allowed in browser permissions, show an alert.
     useEffect(() => {

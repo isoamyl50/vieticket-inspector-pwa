@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { apiBaseUrl } from '../utils/api';
+import {jwtDecode} from 'jwt-decode';
+import {apiBaseUrl} from '../utils/api';
 
 interface LoginResponse {
     jwt: string;
@@ -70,8 +70,8 @@ export const useAuth = () => {
         setError(null);
 
         try {
-            const response = await axios.post<LoginResponse>(`${apiBaseUrl}/auth/login`, { username, password });
-            const { jwt } = response.data;
+            const response = await axios.post<LoginResponse>(`${apiBaseUrl}/auth/login`, {username, password});
+            const {jwt} = response.data;
 
             const decoded = jwtDecode<{ sub: string; roles: string[] }>(jwt);
             if (!decoded.roles.includes('ORGANIZER')) {
@@ -108,5 +108,5 @@ export const useAuth = () => {
         setAuthToken(null);
     };
 
-    return { isLoading, error, setError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone };
+    return {isLoading, error, setError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone};
 };

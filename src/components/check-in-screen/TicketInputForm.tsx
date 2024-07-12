@@ -1,5 +1,5 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Form, Button, InputGroup } from 'react-bootstrap';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
+import {Button, Form, InputGroup} from 'react-bootstrap';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 interface TicketInputFormProps {
@@ -8,7 +8,7 @@ interface TicketInputFormProps {
     handleSubmit: (e: FormEvent) => void;
 }
 
-const TicketInputForm: React.FC<TicketInputFormProps> = ({ qrCode, setQrCode, handleSubmit }) => {
+const TicketInputForm: React.FC<TicketInputFormProps> = ({qrCode, setQrCode, handleSubmit}) => {
 
     const [isValidUuid, setIsValidUuid] = useState(false);
 
@@ -47,8 +47,9 @@ const TicketInputForm: React.FC<TicketInputFormProps> = ({ qrCode, setQrCode, ha
                         value={qrCode}
                         onChange={handleChange}
                     />
-                    <Button variant='primary' type='submit' title='Submit QR Code' aria-label='Submit QR Code' disabled={!isValidUuid}>
-                        <ArrowForwardIcon />
+                    <Button variant='primary' type='submit' title='Submit QR Code' aria-label='Submit QR Code'
+                            disabled={!isValidUuid}>
+                        <ArrowForwardIcon/>
                     </Button>
                 </InputGroup>
                 <Form.Text className='small text-muted'>

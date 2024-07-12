@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import AuthForm from './components/AuthForm';
 import CheckIn from './components/check-in-screen/CheckIn';
-import { useAuth } from './hooks/useAuth';
-import { fetchTicketDetails } from './utils/api';
-import { beep } from './utils/beep';
-import { Container } from 'react-bootstrap';
-import { useThemes } from './hooks/useThemes';
+import {useAuth} from './hooks/useAuth';
+import {fetchTicketDetails} from './utils/api';
+import {beep} from './utils/beep';
+import {Container} from 'react-bootstrap';
+import {useThemes} from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import SplashScreen from './components/splash-screen/SplashScreen';
 import ResetPasswordScreen from './components/reset-password-screen/ResetPasswordScreen';
 
@@ -21,7 +21,7 @@ interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const { cycleTheme, userPref } = useThemes();
+    const {cycleTheme, userPref} = useThemes();
     const {
         isLoading: authLoading,
         error: authError,
@@ -146,7 +146,7 @@ const App: React.FC = () => {
     return (
         <Routes>
             <Route path='/' element={
-                <SplashScreen />
+                <SplashScreen/>
             }
             />
             <Route path='/auth/login' element={
@@ -160,7 +160,7 @@ const App: React.FC = () => {
                         userPref={userPref}
                     />
                 </Container>
-            } />
+            }/>
             <Route path='/check-in' element={
                 <Container className='p-3'>
                     <CheckIn
@@ -170,14 +170,13 @@ const App: React.FC = () => {
                         isLoading={isLoading}
                         onManualSubmit={processQrCode}
                         qrScanned={qrScanned}
-                        setQrScanned={setQrScanned}
                         handleScanAnother={handleScanAnother}
                         onLogout={handleLogout}
                         cycleTheme={cycleTheme}
                         userPref={userPref}
                     />
                 </Container>
-            } />
+            }/>
             <Route path='/auth/reset-password' element={
                 <Container className='p-3'>
                     <ResetPasswordScreen
@@ -185,7 +184,7 @@ const App: React.FC = () => {
                         userPref={userPref}
                     />
                 </Container>
-            } />
+            }/>
         </Routes>
     );
 };

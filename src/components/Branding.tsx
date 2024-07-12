@@ -5,20 +5,21 @@ interface BrandingProps {
     big?: boolean;
 }
 
-const BigBranding: React.FC<BrandingProps> = ({ className }) => {
+const BigBranding: React.FC<BrandingProps> = ({className}) => {
     return (
         <div className={`text-start ${className}`}>
             <h2 className="mb-0 display-3 fw-semibold">Inspector</h2>
             <figcaption className="text-muted mt-0 fw-light">
-                by <a className="fw-semibold text-decoration-none text-muted" href="https://www.vieticket.io.vn/" target="_blank" rel="noopener noreferrer">VieTicket</a>
+                by <a className="fw-semibold text-decoration-none text-muted" href="https://www.vieticket.io.vn/"
+                      target="_blank" rel="noopener noreferrer">VieTicket</a>
             </figcaption>
         </div>
     );
 };
 
-const Branding: React.FC<BrandingProps> = ({ className, big: isBig }) => {
+const Branding: React.FC<BrandingProps> = ({className, big: isBig}) => {
     if (isBig) {
-        return <BigBranding className={className} />;
+        return <BigBranding className={className}/>;
     }
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Alert } from 'react-bootstrap';
+import {Alert, Card} from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -18,20 +18,20 @@ interface TicketDetailsCardProps {
     error: string | null;
 }
 
-const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, isLoading, error }) => {
-    const getRandomWidth = () => Math.floor(Math.random() * 69) + 20;
+const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ticketDetails, isLoading, error}) => {
+    const getRandomWidth = () => Math.floor(Math.random() * 50) + 25;
 
     if (isLoading) {
         return (
             <Card className='mt-0' border='info'>
                 <Card.Header>
-                    <Skeleton width={`${getRandomWidth()}%`} />
+                    <Skeleton width={`${getRandomWidth()}%`}/>
                 </Card.Header>
                 <Card.Body>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
                 </Card.Body>
             </Card>
         );
@@ -50,10 +50,11 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, is
                 className={`mt-0`}>
                 <Card.Header><strong>{ticketDetails.message}</strong></Card.Header>
                 <Card.Body>
-                    <Card.Text>Lead Visitor: {ticketDetails.leadVisitor}</Card.Text>
-                    <Card.Text>Event: {ticketDetails.event}</Card.Text>
-                    <Card.Text>Area/Row/Seat: {ticketDetails.seat}</Card.Text>
-                    <Card.Text>Status: <strong>{ticketDetails.status}</strong></Card.Text>
+                    <Card.Text><span className={'fw-bold'}>Lead Visitor:</span> {ticketDetails.leadVisitor}</Card.Text>
+                    <Card.Text><span className={'fw-bold'}>Event:</span> {ticketDetails.event}</Card.Text>
+                    <Card.Text><span className={'fw-bold'}>Area/Row/Seat:</span> {ticketDetails.seat}</Card.Text>
+                    <Card.Text><span className={'fw-bold'}>Status:</span>
+                        <strong>{ticketDetails.status}</strong></Card.Text>
                 </Card.Body>
             </Card>
         );

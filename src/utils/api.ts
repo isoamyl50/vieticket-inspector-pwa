@@ -12,7 +12,7 @@ export const apiBaseUrl: string = (import.meta.env.VITE_APP_API_BASE_URL as stri
  * @returns A Promise that resolves to the ticket details.
  */
 export const fetchTicketDetails = async (qrCode: string, token: string) => {
-    const response = await axios.post(`${apiBaseUrl}/organizer/checkin`, { qrCode }, {
+    const response = await axios.post(`${apiBaseUrl}/organizer/checkin`, {qrCode}, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -26,7 +26,7 @@ export const fetchTicketDetails = async (qrCode: string, token: string) => {
  * @returns A Promise that resolves to the server's response.
  */
 export const requestPasswordReset = async (email: string) => {
-    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/request-reset`, { email });
+    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/request-reset`, {email});
     return response.data;
 };
 
@@ -37,7 +37,7 @@ export const requestPasswordReset = async (email: string) => {
  * @returns A Promise that resolves to the server's response.
  */
 export const verifyOtp = async (email: string, otp: string) => {
-    const response = await axios.post(`${apiBaseUrl}/auth/verify-otp`, { email, otp });
+    const response = await axios.post(`${apiBaseUrl}/auth/verify-otp`, {email, otp});
     return response.data;
 };
 
@@ -47,7 +47,7 @@ export const verifyOtp = async (email: string, otp: string) => {
  * @returns A Promise that resolves to the server's response.
  */
 export const setNewPassword = async (token: string, newPassword: string) => {
-    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/new-password`, { token, newPassword }, {
+    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/new-password`, {token, newPassword}, {
         withCredentials: true // Include this to send cookies with the request
     });
     return response.data;

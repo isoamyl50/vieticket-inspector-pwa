@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 /**
  * Custom hook for managing dark mode preference.
- * 
+ *
  * @returns An object containing the current dark mode state, a function to cycle through different themes, and the user preference.
  */
 export const useThemes = () => {
@@ -30,7 +30,7 @@ export const useThemes = () => {
 
         const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
         mediaQueryList.addEventListener('change', updateDarkModePreference);
-        updateDarkModePreference(); 
+        updateDarkModePreference();
 
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
         if (darkMode) {
@@ -64,5 +64,5 @@ export const useThemes = () => {
         }
     }
 
-    return { darkMode, cycleTheme, userPref };
+    return {darkMode, cycleTheme, userPref};
 };

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button, FloatingLabel, Form } from 'react-bootstrap';
-import { requestPasswordReset } from '../../utils/api';
+import React, {useState} from 'react';
+import {Button, FloatingLabel, Form} from 'react-bootstrap';
+import {requestPasswordReset} from '../../utils/api';
 import axios from 'axios';
 
 interface EmailOrUsernameFormProps {
@@ -11,7 +11,13 @@ interface EmailOrUsernameFormProps {
     setParentEmail: (email: string) => void;
 }
 
-const EmailOrUsernameForm: React.FC<EmailOrUsernameFormProps> = ({ setMessage, isLoading, setLoading, setSuccess, setParentEmail }) => {
+const EmailOrUsernameForm: React.FC<EmailOrUsernameFormProps> = ({
+                                                                     setMessage,
+                                                                     isLoading,
+                                                                     setLoading,
+                                                                     setSuccess,
+                                                                     setParentEmail
+                                                                 }) => {
     const [emailOrUsername, setEmailOrUsername] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
