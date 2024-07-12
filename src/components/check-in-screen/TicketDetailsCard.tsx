@@ -16,9 +16,10 @@ interface TicketDetailsCardProps {
     ticketDetails: TicketDetails | null;
     isLoading: boolean;
     error: string | null;
+    qrScanned: boolean;
 }
 
-const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ticketDetails, isLoading, error}) => {
+const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ticketDetails, isLoading, error, qrScanned}) => {
     const getRandomWidth = () => Math.floor(Math.random() * 50) + 25;
 
     if (isLoading) {
@@ -38,14 +39,14 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ticketDetails, isL
     }
 
     if (error) {
-        return <Alert variant='danger' className='mt-0'>{error}</Alert>;
+        return <Alert variant={!qrScanned ? 'secondary' : 'danger'} className='mt-0'>{error}</Alert>;
     }
 
     if (ticketDetails) {
         return (
             <Card
-                bg={ticketDetails.status !== 'PURCHASED' ? 'danger' : undefined}
-                text={ticketDetails.status !== 'PURCHASED' ? 'light' : undefined}
+                bg={!qrScanned ? undefined : ticketDetails.status !== 'PURCHASED' ? 'danger' : undefined}
+                text={!qrScanned ? 'muted' : ticketDetails.status !== 'PURCHASED' ? 'light' : undefined}
                 border={ticketDetails.status !== 'PURCHASED' ? 'danger' : undefined}
                 className={`mt-0`}>
                 <Card.Header><strong>{ticketDetails.message}</strong></Card.Header>

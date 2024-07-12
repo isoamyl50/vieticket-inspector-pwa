@@ -1,6 +1,6 @@
-import React, {FormEvent, useEffect, useState} from 'react';
-import {Alert, Button, ButtonGroup} from 'react-bootstrap';
-import TicketDetailsCard, {TicketDetails} from './TicketDetailsCard';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { Alert, Button, ButtonGroup, CloseButton } from 'react-bootstrap';
+import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeButton from '../ThemeButton';
 import QrReader from './QrReader';
@@ -8,7 +8,7 @@ import QrReader from './QrReader';
 import './CheckIn.css'
 import TicketInputForm from './TicketInputForm';
 import Branding from '../Branding';
-import {CameraswitchOutlined, LogoutOutlined} from '@mui/icons-material';
+import { LogoutOutlined } from '@mui/icons-material';
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -21,20 +21,22 @@ interface CheckInProps {
     onLogout: () => void;
     userPref: 'light' | 'dark' | 'auto';
     cycleTheme: () => void;
+    clearPreviousTicket?: () => void;
 }
 
 const CheckIn: React.FC<CheckInProps> = ({
-                                             onQrScan,
-                                             ticketDetails,
-                                             error,
-                                             isLoading,
-                                             onManualSubmit,
-                                             qrScanned,
-                                             handleScanAnother,
-                                             onLogout,
-                                             userPref,
-                                             cycleTheme
-                                         }) => {
+    onQrScan,
+    ticketDetails,
+    error,
+    isLoading,
+    onManualSubmit,
+    qrScanned,
+    handleScanAnother,
+    onLogout,
+    userPref,
+    cycleTheme,
+    clearPreviousTicket
+}) => {
 
     const [qrCode, setQrCode] = useState('');
     const [cameraOrientation, setCameraOrientation] = useState<'environment' | 'user'>('environment');
@@ -89,15 +91,15 @@ const CheckIn: React.FC<CheckInProps> = ({
     return (
         <div>
             <header className='d-flex justify-content-between align-items-center mb-3'>
-                <Branding/>
+                <Branding />
                 <ButtonGroup size='sm' className='text-end'>
-                    <ThemeButton userPref={userPref} cycleTheme={cycleTheme}/>
+                    <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
                     <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout'
-                            onClick={handleLogout} style={{color: 'var(--bs-danger)'}}><LogoutOutlined/></Button>
+                        onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutOutlined /></Button>
                 </ButtonGroup>
             </header>
 
-            <main onClick={qrScanned ? handleScanAnother : undefined} style={{minHeight: '100dvh'}}>
+            <main onClick={qrScanned ? handleScanAnother : undefined} style={{ minHeight: '100dvh' }}>
                 <div className='row g-4'>
                     <div className='col-lg-6'>
                         {qrScanned ? (
@@ -106,13 +108,19 @@ const CheckIn: React.FC<CheckInProps> = ({
                         ) : (
                             <>
                                 <QrReader onScan={onQrScan} cameraOrientation={cameraOrientation} />
-                                <br/>
-                                <TicketInputForm qrCode={qrCode} setQrCode={setQrCode} handleSubmit={handleSubmit}/>
+                                <br />
+                                <TicketInputForm qrCode={qrCode} setQrCode={setQrCode} handleSubmit={handleSubmit} />
                             </>
                         )}
                     </div>
                     <div className='col-lg-6'>
-                        <TicketDetailsCard ticketDetails={ticketDetails} isLoading={isLoading} error={error}/>
+                        {!qrScanned && (ticketDetails || error) && (
+                            <div className='d-flex align-items-center mt-3 mt-lg-0 mb-3'>
+                                <CloseButton aria-label='Hide' title='Hide' className='mb-0 mt-0' onClick={clearPreviousTicket} variant='danger' />
+                                <h3 className='text-muted mb-0 mt-0 ms-2'>Previous Ticket</h3>
+                            </div>
+                        )}
+                        <TicketDetailsCard ticketDetails={ticketDetails} qrScanned={qrScanned} isLoading={isLoading} error={error} />
                     </div>
                 </div>
             </main>
