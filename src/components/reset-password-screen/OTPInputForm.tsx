@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {Button, FloatingLabel, Form} from 'react-bootstrap';
-import {verifyOtp} from '../../utils/api';
+import React, { useState } from 'react';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
+import { verifyOtp } from '../../utils/api';
 import axios from 'axios';
 
 interface OTPInputFormProps {
@@ -13,13 +13,13 @@ interface OTPInputFormProps {
 }
 
 const OTPInputForm: React.FC<OTPInputFormProps> = ({
-                                                       setMessage,
-                                                       setLoading,
-                                                       isLoading,
-                                                       setSuccess,
-                                                       email,
-                                                       setToken
-                                                   }) => {
+    setMessage,
+    setLoading,
+    isLoading,
+    setSuccess,
+    email,
+    setToken
+}) => {
     const [otp, setOtp] = useState('');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +63,13 @@ const OTPInputForm: React.FC<OTPInputFormProps> = ({
                         type='text'
                         placeholder='Enter OTP'
                         value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            // Allow only digits and enforce max length of 6
+                            if (/^\d*$/.test(value) && value.length <= 6) {
+                                setOtp(value);
+                            }
+                        }}
                         disabled={isLoading}
                     />
                 </FloatingLabel>
