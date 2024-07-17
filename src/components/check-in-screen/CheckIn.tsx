@@ -39,7 +39,6 @@ const CheckIn: React.FC<CheckInProps> = ({
 }) => {
 
     const [qrCode, setQrCode] = useState('');
-    const [cameraOrientation, setCameraOrientation] = useState<'environment' | 'user'>('environment');
 
     const handleLogout = () => {
         onLogout();
@@ -51,10 +50,6 @@ const CheckIn: React.FC<CheckInProps> = ({
             onManualSubmit(qrCode);
             setQrCode('');
         }
-    }
-
-    const changeCameraOrientation = () => {
-        setCameraOrientation(cameraOrientation === 'environment' ? 'user' : 'environment');
     }
 
     // Function to adjust the main element's height
@@ -89,7 +84,7 @@ const CheckIn: React.FC<CheckInProps> = ({
     }, []);
 
     return (
-        <div>
+        <>
             <header className='d-flex justify-content-between align-items-center mb-3'>
                 <Branding />
                 <ButtonGroup size='sm' className='text-end'>
@@ -107,7 +102,7 @@ const CheckIn: React.FC<CheckInProps> = ({
                                 validate another ticket.</Alert>
                         ) : (
                             <>
-                                <QrReader onScan={onQrScan} cameraOrientation={cameraOrientation} />
+                                <QrReader onScan={onQrScan} />
                                 <br />
                                 <TicketInputForm qrCode={qrCode} setQrCode={setQrCode} handleSubmit={handleSubmit} />
                             </>
@@ -124,7 +119,7 @@ const CheckIn: React.FC<CheckInProps> = ({
                     </div>
                 </div>
             </main>
-        </div>
+        </>
     );
 };
 
