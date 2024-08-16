@@ -1,7 +1,7 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
-import {apiBaseUrl} from '../utils/api';
+import { jwtDecode } from 'jwt-decode';
+import { apiBaseUrl } from '../utils/api';
 
 interface LoginResponse {
     jwt: string;
@@ -70,8 +70,8 @@ export const useAuth = () => {
         setError(null);
 
         try {
-            const response = await axios.post<LoginResponse>(`${apiBaseUrl}/auth/login`, {username, password});
-            const {jwt} = response.data;
+            const response = await axios.post<LoginResponse>(`${apiBaseUrl}/auth/login`, { username, password });
+            const { jwt } = response.data;
 
             const decoded = jwtDecode<{ sub: string; roles: string[] }>(jwt);
             if (!decoded.roles.includes('ORGANIZER')) {
@@ -84,16 +84,16 @@ export const useAuth = () => {
         } catch (err) {
             if (err instanceof AuthError) {
                 setError(err.message);
-                // Check if error is network error
-            } else if (axios.isAxiosError(err) && !err.response) {
-                setError('Failed to establish connection to the server. Please check your network connection and try again later.');
-                // Check if error status starts with 5 (server error)
-            } else if (axios.isAxiosError(err) && err.response && err.response.status.toString().startsWith('5')) {
-                setError('Server error. Please try again later.');
-                // Check if error status is 401 (unauthorized)
-            } else if (axios.isAxiosError(err) && err.response && err.response.status === 401) {
-                setError(`Invalid login. Please try again.`);
-                // Any unexpected error
+            } else if (axios.isAxiosError(err)) {
+                if (!err.response) {
+                    setError('Failed to establish connection to the server. Please check your network connection and try again later.');
+                } else if (err.response.status.toString().startsWith('5')) {
+                    setError('Server error. Please try again later.');
+                } else if (err.response.status === 401) {
+                    setError('Invalid login. Please try again.');
+                } else {
+                    setError(err.response.data?.message || 'An unexpected error occurred. Please try again.');
+                }
             } else {
                 setError('An unexpected error occurred. Please try again.');
             }
@@ -108,5 +108,5 @@ export const useAuth = () => {
         setAuthToken(null);
     };
 
-    return {isLoading, error, setError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone};
+    return { isLoading, error, setError, authToken, login, logout, isAuthenticated, isInitialAuthCheckDone };
 };
