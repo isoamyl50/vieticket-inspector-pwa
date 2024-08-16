@@ -1,16 +1,9 @@
 import React from 'react';
-import {Alert, Card} from 'react-bootstrap';
+import { Alert, Card } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-loading-skeleton/dist/skeleton.css';
-
-export interface TicketDetails {
-    leadVisitor: string;
-    event: string;
-    seat: string;
-    status: 'PURCHASED' | 'CHECKED_IN' | null;
-    message?: string;
-}
+import { TicketDetails } from '../../App';
 
 interface TicketDetailsCardProps {
     ticketDetails: TicketDetails | null;
@@ -19,20 +12,20 @@ interface TicketDetailsCardProps {
     qrScanned: boolean;
 }
 
-const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ticketDetails, isLoading, error, qrScanned}) => {
+const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ ticketDetails, isLoading, error, qrScanned }) => {
     const getRandomWidth = () => Math.floor(Math.random() * 50) + 25;
 
     if (isLoading) {
         return (
             <Card className='mt-0' border='info'>
                 <Card.Header>
-                    <Skeleton width={`${getRandomWidth()}%`}/>
+                    <Skeleton width={`${getRandomWidth()}%`} />
                 </Card.Header>
                 <Card.Body>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
-                    <Card.Text><Skeleton width={`${getRandomWidth()}%`}/></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
+                    <Card.Text><Skeleton width={`${getRandomWidth()}%`} /></Card.Text>
                 </Card.Body>
             </Card>
         );
@@ -55,7 +48,7 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({ticketDetails, isL
                     <Card.Text><span className={'fw-bold'}>Event:</span> {ticketDetails.event}</Card.Text>
                     <Card.Text><span className={'fw-bold'}>Area/Row/Seat:</span> {ticketDetails.seat}</Card.Text>
                     <Card.Text><span className={'fw-bold'}>Status:</span>
-                        <strong>{ticketDetails.status}</strong></Card.Text>
+                        <strong>{' ' + ticketDetails.status}</strong></Card.Text>
                 </Card.Body>
             </Card>
         );

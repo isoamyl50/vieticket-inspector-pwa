@@ -4,14 +4,14 @@ import { fetchTicketDetails } from './utils/api';
 import { beep } from './utils/beep';
 import { Container } from 'react-bootstrap';
 import { useThemes } from './hooks/useThemes';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-interface TicketDetails {
+export interface TicketDetails {
+    qrCode?: string,
     leadVisitor: string;
     event: string;
     seat: string;
-    status: 'PURCHASED' | 'CHECKED_IN' | null;
+    status?: 'PURCHASED' | 'CHECKED_IN';
     message?: string;
 }
 
@@ -22,7 +22,6 @@ const App: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
     const [qrCodeState, setQrCodeState] = useState<string | null>(null);
-    const authToken = '';
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
@@ -43,46 +42,31 @@ const App: React.FC = () => {
 
         setQrScanned(true);
 
-        // Check if qrCode text matches UUID format
-        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-        if (!uuidRegex.test(qrCode)) {
-            setError('Invalid QR code. Please try again.');
-            beep(false);
+        // Check if qrCode not empty
+        if (!qrCode) {
+            setError('Please try again with another QR Code.');
             return;
         }
 
-        if (authToken && qrCode) {
-            setIsLoading(true);
-            try {
-                const data = await fetchTicketDetails(qrCode, authToken);
-                if (data.status === 'PURCHASED') {
-                    beep();
-                } else {
-                    beep(false);
-                }
-
-                setTicketDetails(data);
-                setError(null);
-            } catch (err) {
-                if (axios.isAxiosError(err) && err.response) {
-                    // Check if the error status code is 400
-                    if (err.response.status === 400) {
-                        // Assuming the server response contains a message field in its JSON payload
-                        const errorMessage = err.response.data.message || 'Error submitting QR Code';
-                        setError(errorMessage);
-                    } else {
-                        // Handle other errors
-                        setError('Error submitting QR Code');
-                    }
-                } else {
-                    // Handle errors and play the error sound
-                    setError('An unexpected error occurred');
-                }
-            } finally {
-                setIsLoading(false);
+        setIsLoading(true);
+        try {
+            const data = await fetchTicketDetails(qrCode);
+            if (data.status === 'PURCHASED') {
+                beep();
+            } else {
+                beep(false);
             }
+
+            setTicketDetails(data);
+            setError(null);
+        } catch (err) {
+            // Assuming the server response contains a message field in its JSON payload
+            const errorMessage = 'Error submitting QR Code';
+            setError(errorMessage);
+        } finally {
+            setIsLoading(false);
         }
-    }, [authToken]);
+    }, []);
 
     const handleQrCode = useCallback(
         (qrCode: string) => {

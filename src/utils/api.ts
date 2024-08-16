@@ -1,54 +1,41 @@
-import axios from 'axios';
+import { TicketDetails } from "../App";
 
+const sampleTicketDetails: TicketDetails = {
+    leadVisitor: "John Doe",
+    event: "Never Gonna Give You Up",
+    seat: "R17A"
+}
 /**
- * The base URL of the API. Defined to separate development and production environments.
- */
-export const apiBaseUrl: string = (import.meta.env.VITE_APP_API_BASE_URL as string);
-
-/**
- * Fetches ticket details from the API.
+ * Fetches ticket details from the fake API.
  * @param qrCode - The QR code of the ticket.
- * @param token - The authentication token.
  * @returns A Promise that resolves to the ticket details.
  */
-export const fetchTicketDetails = async (qrCode: string, token: string) => {
-    const response = await axios.post(`${apiBaseUrl}/organizer/checkin`, {qrCode}, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-    return response.data;
-};
+export const fetchTicketDetails = async (qrCode: string) => {
+    // Add some delay to be realistic
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    const randomDelay = Math.floor(Math.random() * 480);
 
-/**
- * Requests a password reset.
- * @param email - The email address of the user requesting the password reset.
- * @returns A Promise that resolves to the server's response.
- */
-export const requestPasswordReset = async (email: string) => {
-    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/request-reset`, {email});
-    return response.data;
-};
+    const storedQrCodes = JSON.parse(localStorage.getItem('scannedQrCodes') || '[]');
 
-/**
- * Verifies the OTP for password reset.
- * @param email - The email address of the user.
- * @param otp - The one-time password provided by the user.
- * @returns A Promise that resolves to the server's response.
- */
-export const verifyOtp = async (email: string, otp: string) => {
-    const response = await axios.post(`${apiBaseUrl}/auth/verify-otp`, {email, otp});
-    return response.data;
-};
+    let ticketDetailsWithStatus: TicketDetails;
 
-/**
- * Sets the new password for the user.
- * @param newPassword - The new password chosen by the user.
- * @returns A Promise that resolves to the server's response.
- */
-export const setNewPassword = async (token: string, newPassword: string) => {
-    const response = await axios.post(`${apiBaseUrl}/auth/password-reset/new-password`, {token, newPassword}, {
-        withCredentials: true // Include this to send cookies with the request
-    });
-    return response.data;
+    if (storedQrCodes.includes(qrCode)) {
+        ticketDetailsWithStatus = {
+            ...sampleTicketDetails,
+            status: "CHECKED_IN",
+            message: "Ticket already checked-in."
+        };
+    } else {
+        storedQrCodes.push(qrCode);
+        localStorage.setItem('scannedQrCodes', JSON.stringify(storedQrCodes));
+        ticketDetailsWithStatus = {
+            ...sampleTicketDetails,
+            status: "PURCHASED",
+            message: "Check-in successful"
+        };
+    }
+
+    await delay(randomDelay);
+
+    return ticketDetailsWithStatus;
 };
