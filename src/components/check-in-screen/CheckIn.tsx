@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { Alert, Button, ButtonGroup, CloseButton } from 'react-bootstrap';
-import TicketDetailsCard, { TicketDetails } from './TicketDetailsCard';
+import TicketDetailsCard from './TicketDetailsCard';
+import { TicketDetails } from '../../App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ThemeButton from '../ThemeButton';
 import QrReader from './QrReader';
@@ -9,7 +10,6 @@ import './CheckIn.css'
 import TicketInputForm from './TicketInputForm';
 import Branding from '../Branding';
 import { GitHub } from '@mui/icons-material';
-
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
     ticketDetails: TicketDetails | null;
