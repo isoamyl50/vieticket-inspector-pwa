@@ -1,16 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import AuthForm from './components/AuthForm';
 import CheckIn from './components/check-in-screen/CheckIn';
-import { useAuth } from './hooks/useAuth';
 import { fetchTicketDetails } from './utils/api';
 import { beep } from './utils/beep';
 import { Container } from 'react-bootstrap';
 import { useThemes } from './hooks/useThemes';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import SplashScreen from './components/splash-screen/SplashScreen';
-import ResetPasswordScreen from './components/reset-password-screen/ResetPasswordScreen';
 
 interface TicketDetails {
     leadVisitor: string;
@@ -22,35 +17,12 @@ interface TicketDetails {
 
 const App: React.FC = () => {
     const { cycleTheme, userPref } = useThemes();
-    const {
-        isLoading: authLoading,
-        error: authError,
-        setError: setAuthError,
-        authToken,
-        login,
-        logout,
-        isAuthenticated,
-        isInitialAuthCheckDone
-    } = useAuth();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
     const [qrCodeState, setQrCodeState] = useState<string | null>(null);
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-        if (location.pathname !== '/auth/reset-password') {
-            if (!isInitialAuthCheckDone) {
-                navigate('/');
-            } else if (isAuthenticated) {
-                navigate('/check-in');
-            } else {
-                navigate('/auth/login');
-            }
-        }
-    }, [isAuthenticated, navigate, isInitialAuthCheckDone, location.pathname]);
+    const authToken = '';
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
@@ -66,18 +38,6 @@ const App: React.FC = () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
     }, []);
-
-    const clearData = () => {
-        setTicketDetails(null);
-        setError(null);
-        setIsLoading(false);
-        setQrScanned(false);
-    };
-
-    const handleLogout = () => {
-        clearData();
-        logout();
-    }
 
     const processQrCode = useCallback(async (qrCode: string) => {
 
@@ -150,49 +110,20 @@ const App: React.FC = () => {
     }, [qrCodeState, processQrCode]);
 
     return (
-        <Routes>
-            <Route path='/' element={
-                <SplashScreen />
-            }
+        <Container className='p-3'>
+            <CheckIn
+                onQrScan={handleQrCode}
+                ticketDetails={ticketDetails}
+                error={error}
+                isLoading={isLoading}
+                onManualSubmit={processQrCode}
+                qrScanned={qrScanned}
+                handleScanAnother={handleScanAnother}
+                cycleTheme={cycleTheme}
+                userPref={userPref}
+                clearPreviousTicket={clearPreviousTicket}
             />
-            <Route path='/auth/login' element={
-                <Container className='p-3'>
-                    <AuthForm
-                        error={authError}
-                        setError={setAuthError}
-                        isLoading={authLoading}
-                        onLogin={login}
-                        cycleTheme={cycleTheme}
-                        userPref={userPref}
-                    />
-                </Container>
-            } />
-            <Route path='/check-in' element={
-                <Container className='p-3'>
-                    <CheckIn
-                        onQrScan={handleQrCode}
-                        ticketDetails={ticketDetails}
-                        error={error}
-                        isLoading={isLoading}
-                        onManualSubmit={processQrCode}
-                        qrScanned={qrScanned}
-                        handleScanAnother={handleScanAnother}
-                        onLogout={handleLogout}
-                        cycleTheme={cycleTheme}
-                        userPref={userPref}
-                        clearPreviousTicket={clearPreviousTicket}
-                    />
-                </Container>
-            } />
-            <Route path='/auth/reset-password' element={
-                <Container className='p-3'>
-                    <ResetPasswordScreen
-                        cycleTheme={cycleTheme}
-                        userPref={userPref}
-                    />
-                </Container>
-            } />
-        </Routes>
+        </Container>
     );
 };
 

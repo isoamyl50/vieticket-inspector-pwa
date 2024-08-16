@@ -8,7 +8,7 @@ import QrReader from './QrReader';
 import './CheckIn.css'
 import TicketInputForm from './TicketInputForm';
 import Branding from '../Branding';
-import { LogoutOutlined } from '@mui/icons-material';
+import { GitHub } from '@mui/icons-material';
 
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
@@ -18,7 +18,6 @@ interface CheckInProps {
     onManualSubmit: (qrCode: string) => void;
     qrScanned: boolean;
     handleScanAnother: () => void;
-    onLogout: () => void;
     userPref: 'light' | 'dark' | 'auto';
     cycleTheme: () => void;
     clearPreviousTicket?: () => void;
@@ -32,17 +31,12 @@ const CheckIn: React.FC<CheckInProps> = ({
     onManualSubmit,
     qrScanned,
     handleScanAnother,
-    onLogout,
     userPref,
     cycleTheme,
     clearPreviousTicket
 }) => {
 
     const [qrCode, setQrCode] = useState('');
-
-    const handleLogout = () => {
-        onLogout();
-    }
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -89,8 +83,10 @@ const CheckIn: React.FC<CheckInProps> = ({
                 <Branding />
                 <ButtonGroup size='sm' className='text-end'>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
-                    <Button aria-label='Log Out' title='Log Out' variant='outline-secondary' className='btn-logout'
-                        onClick={handleLogout} style={{ color: 'var(--bs-danger)' }}><LogoutOutlined /></Button>
+                    <Button variant='outline-secondary' aria-label='Check out the GitHub Repository'
+                        title='Check out the GitHub Repository'
+                        href='https://github.com/isoamyl50/vieticket-inspector-pwa' target='_blank'
+                        rel='noopener noreferrer'><GitHub /></Button>
                 </ButtonGroup>
             </header>
 
