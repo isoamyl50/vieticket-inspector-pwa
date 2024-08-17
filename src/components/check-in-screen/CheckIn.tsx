@@ -9,7 +9,8 @@ import QrReader from './QrReader';
 import './CheckIn.css'
 import TicketInputForm from './TicketInputForm';
 import Branding from '../Branding';
-import { GitHub } from '@mui/icons-material';
+import {GitHub, HelpOutline} from '@mui/icons-material';
+
 interface CheckInProps {
     onQrScan: (qrCode: string) => void;
     ticketDetails: TicketDetails | null;
@@ -21,6 +22,7 @@ interface CheckInProps {
     userPref: 'light' | 'dark' | 'auto';
     cycleTheme: () => void;
     clearPreviousTicket?: () => void;
+    showModal?: () => void;
 }
 
 const CheckIn: React.FC<CheckInProps> = ({
@@ -33,7 +35,8 @@ const CheckIn: React.FC<CheckInProps> = ({
     handleScanAnother,
     userPref,
     cycleTheme,
-    clearPreviousTicket
+    clearPreviousTicket,
+    showModal
 }) => {
 
     const [qrCode, setQrCode] = useState('');
@@ -82,6 +85,7 @@ const CheckIn: React.FC<CheckInProps> = ({
             <header className='d-flex justify-content-between align-items-center mb-3'>
                 <Branding />
                 <ButtonGroup size='sm' className='text-end'>
+                    <Button variant='outline-secondary' onClick={showModal}><HelpOutline /></Button>
                     <ThemeButton userPref={userPref} cycleTheme={cycleTheme} />
                     <Button variant='outline-secondary' aria-label='Check out the GitHub Repository'
                         title='Check out the GitHub Repository'

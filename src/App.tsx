@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import CheckIn from './components/check-in-screen/CheckIn';
-import { fetchTicketDetails } from './utils/api';
-import { beep } from './utils/beep';
-import { Container } from 'react-bootstrap';
-import { useThemes } from './hooks/useThemes';
+import {fetchTicketDetails} from './utils/api';
+import {beep} from './utils/beep';
+import {Container} from 'react-bootstrap';
+import {useThemes} from './hooks/useThemes';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import HelpModal from "./components/HelpModal";
 
 export interface TicketDetails {
     qrCode?: string,
@@ -16,12 +17,15 @@ export interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const { cycleTheme, userPref } = useThemes();
+    const {cycleTheme, userPref} = useThemes();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
     const [qrCodeState, setQrCodeState] = useState<string | null>(null);
+    const [showModal, setShowModal] = useState(true);
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
@@ -61,7 +65,7 @@ const App: React.FC = () => {
             setError(null);
         } catch (err) {
             // Assuming the server response contains a message field in its JSON payload
-            const errorMessage = 'Error submitting QR Code';
+            const errorMessage = err instanceof Error ? err.message : 'Error submitting QR Code';
             setError(errorMessage);
         } finally {
             setIsLoading(false);
@@ -94,20 +98,24 @@ const App: React.FC = () => {
     }, [qrCodeState, processQrCode]);
 
     return (
-        <Container className='p-3'>
-            <CheckIn
-                onQrScan={handleQrCode}
-                ticketDetails={ticketDetails}
-                error={error}
-                isLoading={isLoading}
-                onManualSubmit={processQrCode}
-                qrScanned={qrScanned}
-                handleScanAnother={handleScanAnother}
-                cycleTheme={cycleTheme}
-                userPref={userPref}
-                clearPreviousTicket={clearPreviousTicket}
-            />
-        </Container>
+        <>
+            <Container className='p-3'>
+                <CheckIn
+                    onQrScan={handleQrCode}
+                    ticketDetails={ticketDetails}
+                    error={error}
+                    isLoading={isLoading}
+                    onManualSubmit={processQrCode}
+                    qrScanned={qrScanned}
+                    handleScanAnother={handleScanAnother}
+                    cycleTheme={cycleTheme}
+                    userPref={userPref}
+                    clearPreviousTicket={clearPreviousTicket}
+                    showModal={handleShowModal}
+                />
+            </Container>
+            <HelpModal showModal={showModal} handleCloseModal={handleCloseModal} />
+        </>
     );
 };
 
