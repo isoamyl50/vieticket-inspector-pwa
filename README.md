@@ -1,9 +1,12 @@
 # Inspector by VieTicket
 
+This project was archived on 2024-08-17. It is no longer maintained and may contain outdated information.
+
 #### A streamlined e-ticket inspection <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps" target="_blank">Progressive Web App (PWA)</a> built with <a href="https://react.dev/" target="_blank">React</a>, designed to make event check-ins quick and efficient.
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
+  <a href="#demo">Demo</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#why-inspector-by-vieticket">Why Inspector by Vieticket?</a> •
   <a href="#technical-highlights">Technical highlights</a> •
@@ -22,6 +25,10 @@
 * **Informative Ticket Details:**  Clearly displays ticket validity status and relevant attendee information.
 * **Light/Dark Mode:**  Choose your preferred visual theme, with an option to match your system's settings.
 * **Fast load time:**  The app opens instantly, thanks to its PWA architecture.
+
+## Demo
+
+Go to [https://inspect.vieticket.io.vn/](https://inspect.vieticket.io.vn/) to see the app in action. This demo runs fully on the client side with no real API calls, so you can test it without any server setup. Please refer to the guide on the demo page for more information. Source code for the demo is available in the `live-demo` branch.
 
 ## How To Use
 
