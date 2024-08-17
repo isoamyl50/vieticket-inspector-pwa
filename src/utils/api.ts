@@ -1,6 +1,6 @@
-import {TicketDetails} from "../App";
+import { TicketDetails } from "../App";
 
-const prefixes = ["the", "that", "this", "my", "his", "her", "its", "their", "our", "your"];
+const prefixes = ["the", "that", "this", "my", "his", "her", "its", "their", "our", "your", "undefined"];
 
 const adjectives = [
     "happy", "sad", "big", "small", "good", "bad", "new", "old", "red", "blue",
@@ -11,7 +11,8 @@ const adjectives = [
     "clean", "dirty", "wet", "dry", "soft", "hard", "light", "heavy", "young", "old",
     "different", "same", "easy", "difficult", "possible", "impossible", "real", "fake",
     "true", "false", "certain", "uncertain", "perfect", "imperfect", "important", "unimportant",
-    "successful", "unsuccessful", "happy", "sad", "angry", "calm", "excited", "bored"
+    "successful", "unsuccessful", "happy", "sad", "angry", "calm", "excited", "bored",
+    "undefined", "null"
 ];
 
 const nouns = [
@@ -23,7 +24,8 @@ const nouns = [
     "game", "sport", "book", "magazine", "newspaper", "letter", "email", "message", "call", "text",
     "picture", "video", "song", "dance", "art", "music", "theater", "museum", "library", "store",
     "restaurant", "hotel", "hospital", "school", "university", "college", "job", "career", "business",
-    "problem", "solution", "idea", "plan", "project", "success", "failure", "chance", "risk", "reward"
+    "problem", "solution", "idea", "plan", "project", "success", "failure", "chance", "risk", "reward",
+    "null"
 ];
 
 const names = ["An", "Ái", "Anh", "Bảo", "Bình", "Bửu", "Cát", "Châu", "Cường", "Cương",
@@ -39,24 +41,34 @@ const names = ["An", "Ái", "Anh", "Bảo", "Bình", "Bửu", "Cát", "Châu", "
 ];
 
 export const generateTicketDetails = (qrCode: string): TicketDetails => {
-    const seed = qrCode
-        .split('')
-        .reduce((acc, char) => acc + char.charCodeAt(0), 0);
 
-    // Function to select from array based on seed, with non-linearity
-    const selectFromArray = (array: string[], seed: number) => {
-        const index = (Math.pow(seed, 2) % array.length + array.length) % array.length; // Non-linear index calculation
-        return array[index];
+    // Generate the seed using the DJB2 hash function as before
+    const generateSeed = (input: string): number => {
+        let hash = 5381;
+        for (let i = 0; i < input.length; i++) {
+            hash = (hash * 33) ^ input.charCodeAt(i); // XOR and multiply by 33
+        }
+        return hash >>> 0; // Convert to unsigned 32-bit integer
     };
 
-    // Generate leadVisitor with more complex seed usage
-    const primeOffset = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 57, 59][seed % 6];
-    const leadVisitor = `${selectFromArray(names, seed + primeOffset)} ${selectFromArray(names, seed * 3 + 1 + primeOffset)} ${selectFromArray(names, seed * 5 - 1 + primeOffset)}`;
+    const seed = generateSeed(qrCode);
 
-    // Generate event with prime number based seed offset
-    const event = `${selectFromArray(prefixes, seed * 2 + primeOffset)} ${selectFromArray(adjectives, seed + primeOffset)} ${selectFromArray(nouns, seed * 2 - primeOffset)}`;
+    // Function to select from array based on a more complex non-linear seed
+    const selectFromArray = (array: string[], seed: number) => {
+        const index = Math.abs(Math.sin(seed) * 10000) % array.length; // Ensure index is always within bounds
+        return array[Math.floor(index)];
+    };
 
-    // Generate seat with more complex seed manipulation
+    // Generate leadVisitor with more complex seed manipulation
+    const primeOffset = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 57, 59];
+    const leadVisitorSeed = (seed * primeOffset[seed % 18]) ^ (seed + primeOffset[(seed + 1) % 18]); // XOR operation for more randomness
+    const leadVisitor = `${selectFromArray(names, leadVisitorSeed)} ${selectFromArray(names, leadVisitorSeed + primeOffset[2])} ${selectFromArray(names, leadVisitorSeed + primeOffset[3])}`;
+
+    // Generate event with complex prime-based seed manipulation
+    const eventSeed = (seed * primeOffset[(seed + 5) % 18]) ^ primeOffset[(seed + 2) % 18]; // Different seed for event
+    const event = `${selectFromArray(prefixes, eventSeed)} ${selectFromArray(adjectives, eventSeed + primeOffset[3])} ${selectFromArray(nouns, eventSeed + primeOffset[4])}`;
+
+    // Generate seat with modular arithmetic and bit shifts
     const seatNumber = (seed * seed) % 999 + 1;
     const seat = `${String.fromCharCode(65 + (seed % 26))}${seatNumber}${String.fromCharCode(65 + ((seed + seatNumber) % 26))}`;
 
