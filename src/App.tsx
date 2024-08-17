@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CheckIn from './components/check-in-screen/CheckIn';
-import {fetchTicketDetails} from './utils/api';
-import {beep} from './utils/beep';
-import {Container} from 'react-bootstrap';
-import {useThemes} from './hooks/useThemes';
+import { fetchTicketDetails } from './utils/api';
+import { beep } from './utils/beep';
+import { Container } from 'react-bootstrap';
+import { useThemes } from './hooks/useThemes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HelpModal from "./components/HelpModal";
 
@@ -17,15 +17,23 @@ export interface TicketDetails {
 }
 
 const App: React.FC = () => {
-    const {cycleTheme, userPref} = useThemes();
+    const { cycleTheme, userPref } = useThemes();
     const [ticketDetails, setTicketDetails] = useState<TicketDetails | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [qrScanned, setQrScanned] = useState(false);
     const [qrCodeState, setQrCodeState] = useState<string | null>(null);
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
+
+    useEffect(() => {
+        const hasAppOpenedBefore = localStorage.getItem('hasAppOpenedBefore');
+        if (!hasAppOpenedBefore) {
+            setShowModal(true);
+            localStorage.setItem('hasAppOpenedBefore', 'true');
+        }
+    }, []);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
