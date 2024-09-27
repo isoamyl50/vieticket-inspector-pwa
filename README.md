@@ -1,6 +1,7 @@
 # Inspector by VieTicket
 
-This project was archived on 2024-08-17. It is no longer maintained and may contain outdated information.
+> [!IMPORTANT]
+> This project is no longer maintained. It may contain outdated information and security risks due to potential vulnerabilities in its dependencies.
 
 #### A streamlined e-ticket inspection <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps" target="_blank">Progressive Web App (PWA)</a> built with <a href="https://react.dev/" target="_blank">React</a>, designed to make event check-ins quick and efficient.
 
